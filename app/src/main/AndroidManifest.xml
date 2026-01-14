@@ -12,6 +12,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NigerAplication">
         <activity
+            android:name=".AgregarProductoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ClientesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DescargasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CarritoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetalleProductoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InventarioActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
