@@ -1,6 +1,7 @@
 package com.example.nigeraplication;
 
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +21,8 @@ public class DescargasActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Cambio de prueba: Mostrar un mensaje emergente al abrir la actividad
+        Toast.makeText(this, "¡Funciona! Cambios aplicados en DescargasActivity", Toast.LENGTH_SHORT).show();
     }
 }
