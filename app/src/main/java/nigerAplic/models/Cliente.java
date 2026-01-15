@@ -1,6 +1,13 @@
 package nigerAplic.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "clientes")
 public class Cliente {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     private String nombre;
     private String apellido;
     private String telefono;
@@ -15,10 +22,32 @@ public class Cliente {
         this.email = email;
     }
 
-    // Getters
-    public String getNombre() { return nombre; }
-    public String getApellido() { return apellido; }
-    public String getTelefono() { return telefono; }
-    public String getDireccion() { return direccion; }
-    public String getEmail() { return email; }
+    // Getters y Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 }

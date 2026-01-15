@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.nigeraplication"
+    namespace = "nigerAplic.nigeraplication"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.nigeraplication"
+        applicationId = "nigerAplic.nigeraplication"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

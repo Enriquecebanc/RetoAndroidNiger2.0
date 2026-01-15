@@ -1,4 +1,4 @@
-package nigerAplic.Adapter;
+package nigerAplic.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-import nigerAplic.R;
+import nigerAplic.nigeraplication.R;
 import nigerAplic.models.Cliente;
 
 public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteViewHolder> {
@@ -32,8 +32,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
     public void onBindViewHolder(@NonNull ClienteViewHolder holder, int position) {
         Cliente cliente = clientes.get(position);
         holder.tvNombreApellido.setText(
-                cliente.getNombre() + " " + cliente.getApellido()
-        );
+                cliente.getNombre() + " " + cliente.getApellido());
         holder.tvTelefono.setText("Tel: " + cliente.getTelefono());
         holder.tvDireccion.setText("Dirección: " + cliente.getDireccion());
         holder.tvEmail.setText("Email: " + cliente.getEmail());

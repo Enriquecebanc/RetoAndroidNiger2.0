@@ -18,6 +18,9 @@
             android:name="nigerAplic.nigeraplication.ClientesActivity"
             android:exported="false" />
         <activity
+            android:name="nigerAplic.nigeraplication.FormClienteActivity"
+            android:exported="false" />
+        <activity
             android:name="nigerAplic.nigeraplication.DescargasActivity"
             android:exported="false" />
         <activity
