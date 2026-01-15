@@ -12,25 +12,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NigerAplication">
         <activity
-            android:name=".AgregarProductoActivity"
+            android:name="nigerAplic.nigeraplication.AgregarProductoActivity"
             android:exported="false" />
         <activity
-            android:name=".ClientesActivity"
+            android:name="nigerAplic.nigeraplication.ClientesActivity"
             android:exported="false" />
         <activity
-            android:name=".DescargasActivity"
+            android:name="nigerAplic.nigeraplication.DescargasActivity"
             android:exported="false" />
         <activity
-            android:name=".CarritoActivity"
+            android:name="nigerAplic.nigeraplication.CarritoActivity"
             android:exported="false" />
         <activity
-            android:name=".DetalleProductoActivity"
+            android:name="nigerAplic.nigeraplication.DetalleProductoActivity"
             android:exported="false" />
         <activity
-            android:name=".InventarioActivity"
+            android:name="nigerAplic.nigeraplication.InventarioActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="nigerAplic.nigeraplication.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

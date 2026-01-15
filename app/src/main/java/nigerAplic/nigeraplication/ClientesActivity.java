@@ -1,3 +1,20 @@
+package nigerAplic.nigeraplication;
+
+import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import nigerAplic.models.Cliente; // 👈 ESTE ES EL IMPORT CLAVE
+
+
 public class ClientesActivity extends AppCompatActivity {
 
     RecyclerView rvClientes;

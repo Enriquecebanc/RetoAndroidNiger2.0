@@ -5,6 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DescargasActivity">
+    tools:context="nigerAplic.nigeraplication.DescargasActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
