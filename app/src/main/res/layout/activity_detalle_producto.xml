@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="nigerAplic.nigeraplication.DetalleProductoActivity">
+    tools:context=".DetalleProductoActivity">
 
     <ScrollView
         android:layout_width="0dp"
@@ -20,6 +20,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
+
+            <!-- TÍTULO -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PRODUCTOS"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="20dp"/>
 
             <!-- Maceta Grande -->
             <LinearLayout
@@ -42,6 +51,30 @@
                     android:layout_height="wrap_content"
                     android:text="Precio: 40€"
                     android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="352dp"
+                    android:layout_height="402dp"
+                    app:srcCompat="@drawable/grande" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Materiales:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Led rojo: 2
+• Led verde: 2
+• Led amarillo: 2
+• Maceta de plástico: Grande
+• Sensor de humedad: 1
+• Sensor de luz: 1
+• Batería: 1" />
+
             </LinearLayout>
 
             <!-- Maceta Mediana -->
@@ -58,13 +91,37 @@
                     android:layout_height="wrap_content"
                     android:text="Maceta Mediana"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Precio: 34€"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="346dp"
+                    android:layout_height="395dp"
+                    app:srcCompat="@drawable/mediano" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Materiales:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Led rojo: 2
+• Led verde: 2
+• Led amarillo: 2
+• Maceta de plástico: Mediana
+• Sensor de humedad: 1
+• Sensor de luz: 1
+• Batería: 1" />
+
             </LinearLayout>
 
             <!-- Maceta Pequeña -->
@@ -80,13 +137,37 @@
                     android:layout_height="wrap_content"
                     android:text="Maceta Pequeña"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Precio: 27€"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="343dp"
+                    android:layout_height="392dp"
+                    app:srcCompat="@drawable/peque_o" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="Materiales:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Led rojo: 2
+• Led verde: 2
+• Led amarillo: 2
+• Maceta de plástico: Pequeña
+• Sensor de humedad: 1
+• Sensor de luz: 1
+• Batería: 1" />
+
             </LinearLayout>
 
         </LinearLayout>
