@@ -3,6 +3,7 @@ package nigerAplic.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,10 +15,16 @@ import nigerAplic.models.Cliente;
 
 public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteViewHolder> {
 
-    private List<Cliente> clientes;
+    public interface OnItemDeleteListener {
+        void onDeleteClick(Cliente cliente);
+    }
 
-    public ClienteAdapter(List<Cliente> clientes) {
+    private List<Cliente> clientes;
+    private OnItemDeleteListener deleteListener;
+
+    public ClienteAdapter(List<Cliente> clientes, OnItemDeleteListener deleteListener) {
         this.clientes = clientes;
+        this.deleteListener = deleteListener;
     }
 
     @NonNull
@@ -36,6 +43,12 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
         holder.tvTelefono.setText("Tel: " + cliente.getTelefono());
         holder.tvDireccion.setText("Dirección: " + cliente.getDireccion());
         holder.tvEmail.setText("Email: " + cliente.getEmail());
+
+        holder.btnDelete.setOnClickListener(v -> {
+            if (deleteListener != null) {
+                deleteListener.onDeleteClick(cliente);
+            }
+        });
     }
 
     @Override
@@ -46,6 +59,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
     static class ClienteViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvNombreApellido, tvTelefono, tvDireccion, tvEmail;
+        ImageButton btnDelete;
 
         public ClienteViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -53,6 +67,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
             tvTelefono = itemView.findViewById(R.id.tvTelefono);
             tvDireccion = itemView.findViewById(R.id.tvDireccion);
             tvEmail = itemView.findViewById(R.id.tvEmail);
+            btnDelete = itemView.findViewById(R.id.btnDelete);
         }
     }
 }

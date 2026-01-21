@@ -12,6 +12,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class ClientesActivity extends AppCompatActivity {
 
         // Inicializar lista vacía, se cargará en onResume
         listaClientes = new ArrayList<>();
-        adapter = new ClienteAdapter(listaClientes);
+        adapter = new ClienteAdapter(listaClientes, this::eliminarCliente);
         rvClientes.setAdapter(adapter);
 
         FloatingActionButton btnAdd = findViewById(R.id.btnAddCliente);
@@ -52,7 +53,13 @@ public class ClientesActivity extends AppCompatActivity {
     private void cargarClientes() {
         listaClientes = AppDatabase.getInstance(this).clienteDao().getAll();
         // Actualizar el adaptador con la nueva lista
-        adapter = new ClienteAdapter(listaClientes);
+        adapter = new ClienteAdapter(listaClientes, this::eliminarCliente);
         rvClientes.setAdapter(adapter);
+    }
+
+    private void eliminarCliente(Cliente cliente) {
+        AppDatabase.getInstance(this).clienteDao().delete(cliente);
+        Toast.makeText(this, "Cliente eliminado", Toast.LENGTH_SHORT).show();
+        cargarClientes();
     }
 }
