@@ -4,8 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,7 @@ import java.util.List;
 
 import nigerAplic.models.Producto;
 import nigerAplic.nigeraplication.R;
+import nigerAplic.utils.CartManager;
 
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder> {
 
@@ -66,6 +69,11 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
                 holder.imgProducto.setImageResource(android.R.drawable.ic_menu_gallery);
             }
         }
+
+        holder.btnAddToCart.setOnClickListener(v -> {
+            CartManager.getInstance().add(producto);
+            Toast.makeText(context, "Añadido al carrito: " + producto.getNombre(), Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
@@ -78,6 +86,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
 
         TextView tvNombre, tvPrecio, tvMateriales;
         ImageView imgProducto;
+        Button btnAddToCart;
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,7 +94,9 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             tvNombre = itemView.findViewById(R.id.tvNombre);
             tvPrecio = itemView.findViewById(R.id.tvPrecio);
             tvMateriales = itemView.findViewById(R.id.tvMateriales);
+            tvMateriales = itemView.findViewById(R.id.tvMateriales);
             imgProducto = itemView.findViewById(R.id.imgProducto);
+            btnAddToCart = itemView.findViewById(R.id.btnAddToCart);
         }
     }
 }
