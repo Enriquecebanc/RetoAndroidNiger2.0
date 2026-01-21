@@ -14,6 +14,7 @@ import java.util.List;
 
 import nigerAplic.models.Producto;
 import nigerAplic.nigeraplication.R;
+
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder> {
 
     private Context context;
@@ -40,17 +41,30 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         holder.tvPrecio.setText("Precio: " + producto.getPrecio() + "€");
         holder.tvMateriales.setText(producto.getMateriales());
 
-        // Cargar imagen desde drawable por nombre
-        int resId = context.getResources().getIdentifier(
-                producto.getImagen(),
-                "drawable",
-                context.getPackageName()
-        );
+        // Cargar imagen: primero intentar como RESOURCE (para los default), si no como
+        // URI
+        int resId = 0;
+        try {
+            resId = context.getResources().getIdentifier(
+                    producto.getImagen(),
+                    "drawable",
+                    context.getPackageName());
+        } catch (Exception e) {
+            resId = 0;
+        }
 
         if (resId != 0) {
+            // Es un recurso (ej: "grande", "mediano")
             holder.imgProducto.setImageResource(resId);
         } else {
-            holder.imgProducto.setImageResource(android.R.drawable.ic_menu_gallery);
+            // No es recurso, intentar como URI (ej: "content://...")
+            try {
+                android.net.Uri uri = android.net.Uri.parse(producto.getImagen());
+                holder.imgProducto.setImageURI(uri);
+            } catch (Exception e) {
+                // Fallback si falla todo
+                holder.imgProducto.setImageResource(android.R.drawable.ic_menu_gallery);
+            }
         }
     }
 

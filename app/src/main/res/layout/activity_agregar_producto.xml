@@ -17,7 +17,6 @@
             android:textStyle="bold"
             android:layout_marginBottom="16dp" />
 
-
         <EditText
             android:id="@+id/etNombre"
             android:layout_width="match_parent"
@@ -26,7 +25,6 @@
             android:inputType="textPersonName"
             android:layout_marginBottom="12dp" />
 
-
         <EditText
             android:id="@+id/etPrecio"
             android:layout_width="match_parent"
@@ -34,7 +32,6 @@
             android:hint="Precio (€)"
             android:inputType="numberDecimal"
             android:layout_marginBottom="12dp" />
-
 
         <EditText
             android:id="@+id/etMateriales"
@@ -46,21 +43,27 @@
             android:gravity="top"
             android:layout_marginBottom="12dp" />
 
-
-        <EditText
-            android:id="@+id/etImagen"
+        <!-- Nuevo: TextView para mostrar la imagen seleccionada -->
+        <TextView
+            android:id="@+id/tvImagenSeleccionada"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombre de la imagen (drawable)"
-            android:inputType="text"
-            android:layout_marginBottom="20dp" />
+            android:text="No se ha seleccionado imagen"
+            android:layout_marginBottom="8dp" />
 
+        <!-- Botón para seleccionar imagen -->
+        <Button
+            android:id="@+id/btnSeleccionarImagen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Seleccionar imagen" />
 
         <Button
             android:id="@+id/btnGuardar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Guardar producto" />
+            android:text="Guardar producto"
+            android:layout_marginTop="20dp" />
 
     </LinearLayout>
 </ScrollView>
