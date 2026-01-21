@@ -12,77 +12,42 @@
         android:fillViewport="true">
 
         <LinearLayout
-            android:id="@+id/main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center_horizontal"
             android:padding="24dp">
 
             <ImageView
                 android:id="@+id/imgLogo"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="start"
-                android:layout_marginBottom="16dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/niger_logo"
-                android:contentDescription="Logo de la aplicación" />
+                android:layout_marginBottom="16dp"
+                android:contentDescription="Logo" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="MENÚ PRINCIPAL"
                 android:textSize="28sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="32dp"
-                android:layout_marginTop="20dp"/>
-
-            <Button
-                android:id="@+id/btnClientes"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="GESTIÓN DE CLIENTES"
-                android:textSize="16sp"
-                android:layout_marginBottom="12dp"/>
-
-            <Button
-                android:id="@+id/btnCarrito"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="VER CARRITO"
-                android:textSize="16sp"
-                android:layout_marginBottom="12dp"/>
-
-            <Button
-                android:id="@+id/btnDescargas"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="DESCARGAS"
-                android:textSize="16sp"
-                android:layout_marginBottom="12dp"/>
-
-            <Button
-                android:id="@+id/btnDetalle"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="DETALLE PRODUCTO"
-                android:textSize="16sp"
+                android:gravity="center"
                 android:layout_marginBottom="24dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="NUESTRA SEDE: ALTO DEBA"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="8dp"
+                android:text="Nuestra Sede: Alto Deba, Bergara"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                android:layout_marginBottom="24dp"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                app:cardElevation="4dp"
+                android:layout_marginBottom="32dp">
 
                 <ImageView
                     android:id="@+id/imgMapa"
@@ -93,6 +58,34 @@
                     android:clickable="true"
                     android:focusable="true" />
             </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/btnClientes"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="GESTIÓN DE CLIENTES"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:id="@+id/btnCarrito"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="VER CARRITO"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:id="@+id/btnDescargas"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="DESCARGAS"
+                android:layout_marginBottom="12dp"/>
+
+            <Button
+                android:id="@+id/btnDetalle"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="DETALLE PRODUCTO"
+                android:layout_marginBottom="24dp"/>
 
         </LinearLayout>
     </ScrollView>
