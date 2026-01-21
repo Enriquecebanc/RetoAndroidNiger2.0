@@ -1,51 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp"
     tools:context="nigerAplic.nigeraplication.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="MENÚ PRINCIPAL"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="32dp"/>
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/niger_logo"
+        android:contentDescription="Logo de la aplicación" />
 
-    <Button
-        android:id="@+id/btnClientes"
+    <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="GESTIÓN DE CLIENTES"
-        android:textSize="16sp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
 
-    <Button
-        android:id="@+id/btnCarrito"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="VER CARRITO"
-        android:textSize="16sp"
-        android:layout_marginBottom="16dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MENÚ PRINCIPAL"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="32dp"/>
 
-    <Button
-        android:id="@+id/btnDescargas"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="DESCARGAS"
-        android:textSize="16sp"
-        android:layout_marginBottom="16dp"/>
+        <Button
+            android:id="@+id/btnClientes"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="GESTIÓN DE CLIENTES"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"/>
 
-    <Button
-        android:id="@+id/btnDetalle"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="DETALLE PRODUCTO"
-        android:textSize="16sp"/>
+        <Button
+            android:id="@+id/btnCarrito"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="VER CARRITO"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"/>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btnDescargas"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="DESCARGAS"
+            android:textSize="16sp"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnDetalle"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="DETALLE PRODUCTO"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+</FrameLayout>
