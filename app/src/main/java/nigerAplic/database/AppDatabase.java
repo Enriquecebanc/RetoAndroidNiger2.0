@@ -8,10 +8,14 @@ import androidx.room.RoomDatabase;
 
 import nigerAplic.models.Cliente;
 import nigerAplic.models.ClienteDao;
+import nigerAplic.models.Producto;
+import nigerAplic.models.ProductoDao;
 
-@Database(entities = { Cliente.class }, version = 1)
+@Database(entities = { Cliente.class, Producto.class }, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
+
     public abstract ClienteDao clienteDao();
+    public abstract ProductoDao productoDao();
 
     private static volatile AppDatabase INSTANCE;
 
@@ -19,9 +23,13 @@ public abstract class AppDatabase extends RoomDatabase {
         if (INSTANCE == null) {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, "niger_db")
-                            .allowMainThreadQueries() // Simplificación para este reto. En producción no usar esto.
+                    INSTANCE = Room.databaseBuilder(
+                                    context.getApplicationContext(),
+                                    AppDatabase.class,
+                                    "niger_db"
+                            )
+                            .allowMainThreadQueries() // SOLO para prácticas
+                            .fallbackToDestructiveMigration() // IMPORTANTE al subir versión
                             .build();
                 }
             }

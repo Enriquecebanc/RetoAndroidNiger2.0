@@ -1,24 +1,40 @@
 package nigerAplic.nigeraplication;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import nigerAplic.database.AppDatabase;
+import nigerAplic.models.Producto;
 
 public class AgregarProductoActivity extends AppCompatActivity {
+
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_agregar_producto);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        db = AppDatabase.getInstance(this);
+
+        EditText etNombre = findViewById(R.id.etNombre);
+        EditText etPrecio = findViewById(R.id.etPrecio);
+        EditText etMateriales = findViewById(R.id.etMateriales);
+        EditText etImagen = findViewById(R.id.etImagen);
+        Button btnGuardar = findViewById(R.id.btnGuardar);
+
+        btnGuardar.setOnClickListener(v -> {
+            Producto producto = new Producto();
+            producto.setNombre(etNombre.getText().toString());
+            producto.setPrecio(Double.parseDouble(etPrecio.getText().toString()));
+            producto.setMateriales(etMateriales.getText().toString());
+            producto.setImagen(etImagen.getText().toString());
+
+            db.productoDao().insert(producto);
+            finish();
         });
     }
 }
