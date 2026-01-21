@@ -1,52 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="24dp">
+    android:padding="24dp"
+    tools:context=".DescargasActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EXPORTAR DATOS JSON"
+        android:text="Zona de Descargas"
         android:textSize="24sp"
         android:textStyle="bold"
         android:layout_marginBottom="32dp"/>
 
-    <Button
-        android:id="@+id/btnDescargarClientes"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#2196F3"
-        android:text="Descargar Clientes"
-        android:textColor="#FFFFFF" />
-
-    <Button
-        android:id="@+id/btnDescargarPedidos"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Descargar Pedidos"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#FF9800"
-        android:textColor="#FFFFFF"/>
-
-    <Button
-        android:id="@+id/btnDescargarProductos"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Descargar Productos"
-        android:backgroundTint="#4CAF50"
-        android:textColor="#FFFFFF"/>
-
     <ProgressBar
         android:id="@+id/pbDescarga"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:visibility="invisible"
-        android:indeterminate="true"/>
+        android:layout_marginBottom="24dp"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btnDescargaMasiva"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="DESCARGAR TODO\n(Clientes, Pedidos, etc.)"/>
 
 </LinearLayout>

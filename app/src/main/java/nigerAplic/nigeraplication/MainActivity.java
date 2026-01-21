@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnClientes = findViewById(R.id.btnClientes);
         Button btnCarrito = findViewById(R.id.btnCarrito);
         Button btnDescargas = findViewById(R.id.btnDescargas);
-        Button btnDetalle = findViewById(R.id.btnDetalle);
+        Button btnProductos = findViewById(R.id.btnProductos);
         ImageView imgMapa = findViewById(R.id.imgMapa);
 
         // Navegación de botones
@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        btnDetalle.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, DetalleProductoActivity.class);
+        btnProductos.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, InventarioActivity.class);
             startActivity(intent);
         });
 

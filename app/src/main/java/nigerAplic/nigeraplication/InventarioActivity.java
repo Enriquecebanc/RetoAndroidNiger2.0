@@ -2,23 +2,74 @@ package nigerAplic.nigeraplication;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
+
+import nigerAplic.adapter.ProductoAdapter;
+import nigerAplic.database.AppDatabase;
+import nigerAplic.models.Producto;
+import nigerAplic.models.ProductoDao;
 
 public class InventarioActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_inventario);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        RecyclerView rvProductos = findViewById(R.id.rvProductos);
+        rvProductos.setLayoutManager(new LinearLayoutManager(this));
+
+        // Cargar productos de la BD
+        List<Producto> listaProductos = AppDatabase.getInstance(this).productoDao().getAll();
+
+        // Si la lista está vacía, agregar datos de prueba (Opcional, para que el
+        // usuario vea algo)
+        if (listaProductos.isEmpty()) {
+            agregarDatosPrueba();
+            listaProductos = AppDatabase.getInstance(this).productoDao().getAll();
+        }
+
+        ProductoAdapter adapter = new ProductoAdapter(this, listaProductos);
+        rvProductos.setAdapter(adapter);
+
+        // Botón flotante para agregar (Opcional)
+        FloatingActionButton btnAdd = findViewById(R.id.btnAddProducto);
+        btnAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(InventarioActivity.this, AgregarProductoActivity.class);
+            startActivity(intent);
         });
+    }
+
+    private void agregarDatosPrueba() {
+        ProductoDao dao = AppDatabase.getInstance(this).productoDao();
+
+        Producto p1 = new Producto();
+        p1.setNombre("Maceta Grande");
+        p1.setPrecio(40);
+        p1.setMateriales("• Led rojo: 2\n• Led verde: 2\n• Led amarillo: 2\n• Batería: 1\n• Sensor: 1");
+        p1.setImagen("grande");
+
+        Producto p2 = new Producto();
+        p2.setNombre("Maceta Mediana");
+        p2.setPrecio(34);
+        p2.setMateriales("• Led rojo: 2\n• Led verde: 2\n• Batería: 1");
+        p2.setImagen("mediano");
+
+        Producto p3 = new Producto();
+        p3.setNombre("Maceta Pequeña");
+        p3.setPrecio(27);
+        p3.setMateriales("• Led rojo: 1\n• Batería: 1");
+        p3.setImagen("peque_o");
+
+        dao.insert(p1);
+        dao.insert(p2);
+        dao.insert(p3);
     }
 }
