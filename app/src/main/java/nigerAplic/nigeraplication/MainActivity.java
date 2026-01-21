@@ -1,9 +1,10 @@
 package nigerAplic.nigeraplication;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,11 +15,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Enlace de componentes con el XML
         Button btnClientes = findViewById(R.id.btnClientes);
         Button btnCarrito = findViewById(R.id.btnCarrito);
         Button btnDescargas = findViewById(R.id.btnDescargas);
         Button btnDetalle = findViewById(R.id.btnDetalle);
+        ImageView imgMapa = findViewById(R.id.imgMapa);
 
+        // Navegación de botones
         btnClientes.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ClientesActivity.class);
             startActivity(intent);
@@ -37,6 +41,25 @@ public class MainActivity extends AppCompatActivity {
         btnDetalle.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, DetalleProductoActivity.class);
             startActivity(intent);
+        });
+
+        // Lógica para el mapa (imagen interactiva)
+        imgMapa.setOnClickListener(v -> {
+            // Coordenadas de Mancomunidad del Alto Deba
+            Uri gmmIntentUri = Uri.parse("geo:43.0639,-2.4848?q=Mancomunidad+del+Alto+Deba");
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+
+            // Intentar abrir la aplicación de Google Maps
+            mapIntent.setPackage("com.google.android.apps.maps");
+
+            // Si el dispositivo tiene Google Maps instalado, lo abre
+            if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(mapIntent);
+            } else {
+                // Si no, abre el navegador web normal
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                startActivity(webIntent);
+            }
         });
     }
 }
