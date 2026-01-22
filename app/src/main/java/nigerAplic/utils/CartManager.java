@@ -24,6 +24,16 @@ public class CartManager {
         cartItems.add(producto);
     }
 
+    public void remove(Producto producto) {
+        cartItems.remove(producto);
+    }
+
+    public void remove(int index) {
+        if (index >= 0 && index < cartItems.size()) {
+            cartItems.remove(index);
+        }
+    }
+
     public List<Producto> getAll() {
         return new ArrayList<>(cartItems);
     }

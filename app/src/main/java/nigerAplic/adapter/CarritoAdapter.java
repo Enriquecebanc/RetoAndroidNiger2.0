@@ -61,6 +61,22 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
                 holder.imgProducto.setImageResource(android.R.drawable.ic_menu_gallery);
             }
         }
+
+        holder.btnEliminar.setOnClickListener(v -> {
+            int actualPosition = holder.getAdapterPosition();
+            if (actualPosition != RecyclerView.NO_POSITION) {
+                // 1. Eliminar del Manager por índice para asegurar consistencia
+                // Asumimos que la lista del adapter está sincronizada en orden con el Manager
+                nigerAplic.utils.CartManager.getInstance().remove(actualPosition);
+
+                // 2. Eliminar de la lista local del adapter
+                listaCarrito.remove(actualPosition);
+
+                // 3. Notificar al adapter
+                notifyItemRemoved(actualPosition);
+                notifyItemRangeChanged(actualPosition, listaCarrito.size());
+            }
+        });
     }
 
     @Override
@@ -72,12 +88,14 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
 
         TextView tvNombre, tvPrecio;
         ImageView imgProducto;
+        android.widget.ImageButton btnEliminar;
 
         public CarritoViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNombre = itemView.findViewById(R.id.tvNombreCarrito);
             tvPrecio = itemView.findViewById(R.id.tvPrecioCarrito);
             imgProducto = itemView.findViewById(R.id.imgProductoCarrito);
+            btnEliminar = itemView.findViewById(R.id.btnEliminarCarrito);
         }
     }
 }
