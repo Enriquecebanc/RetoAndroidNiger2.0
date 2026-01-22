@@ -41,4 +41,12 @@ public class CartManager {
     public void clear() {
         cartItems.clear();
     }
+
+    public double calculateTotal() {
+        double total = 0;
+        for (Producto p : cartItems) {
+            total += p.getPrecio();
+        }
+        return total;
+    }
 }

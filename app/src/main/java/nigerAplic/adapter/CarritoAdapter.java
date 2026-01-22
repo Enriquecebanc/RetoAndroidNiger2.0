@@ -19,10 +19,16 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
 
     private Context context;
     private List<Producto> listaCarrito;
+    private OnItemDeletedListener deletedListener;
 
-    public CarritoAdapter(Context context, List<Producto> listaCarrito) {
+    public interface OnItemDeletedListener {
+        void onItemDeleted();
+    }
+
+    public CarritoAdapter(Context context, List<Producto> listaCarrito, OnItemDeletedListener deletedListener) {
         this.context = context;
         this.listaCarrito = listaCarrito;
+        this.deletedListener = deletedListener;
     }
 
     @NonNull
@@ -75,6 +81,10 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
                 // 3. Notificar al adapter
                 notifyItemRemoved(actualPosition);
                 notifyItemRangeChanged(actualPosition, listaCarrito.size());
+
+                if (deletedListener != null) {
+                    deletedListener.onItemDeleted();
+                }
             }
         });
     }

@@ -18,12 +18,15 @@ public class CarritoActivity extends AppCompatActivity {
     private RecyclerView recyclerCarrito;
     private CarritoAdapter adapter;
 
+    private android.widget.TextView tvTotalCarrito;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito);
 
         recyclerCarrito = findViewById(R.id.recyclerCarrito);
+        tvTotalCarrito = findViewById(R.id.tvTotalCarrito);
         recyclerCarrito.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -40,7 +43,16 @@ public class CarritoActivity extends AppCompatActivity {
             Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show();
         }
 
-        adapter = new CarritoAdapter(this, listaCarrito);
+        actualizarTotal();
+
+        adapter = new CarritoAdapter(this, listaCarrito, () -> {
+            actualizarTotal();
+        });
         recyclerCarrito.setAdapter(adapter);
+    }
+
+    private void actualizarTotal() {
+        double total = CartManager.getInstance().calculateTotal();
+        tvTotalCarrito.setText(String.format("Total: %.2f €", total));
     }
 }
