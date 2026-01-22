@@ -53,19 +53,40 @@ public class InventarioActivity extends AppCompatActivity {
         Producto p1 = new Producto();
         p1.setNombre("Maceta Grande");
         p1.setPrecio(40);
-        p1.setMateriales("• Led rojo: 2\n• Led verde: 2\n• Led amarillo: 2\n• Batería: 1\n• Sensor: 1");
+        p1.setMateriales(
+                "• Led rojo: 2\n" +
+                        "• Led verde: 2\n" +
+                        "• Led amarillo: 2\n" +
+                        "• Maceta de plástico: Grande\n" +
+                        "• Sensor de humedad: 1\n" +
+                        "• Sensor de luz: 1\n" +
+                        "• Batería: 1");
         p1.setImagen("grande");
 
         Producto p2 = new Producto();
         p2.setNombre("Maceta Mediana");
         p2.setPrecio(34);
-        p2.setMateriales("• Led rojo: 2\n• Led verde: 2\n• Batería: 1");
+        p2.setMateriales(
+                "• Led rojo: 2\n" +
+                        "• Led verde: 2\n" +
+                        "• Led amarillo: 2\n" +
+                        "• Maceta de plástico: Mediana\n" +
+                        "• Sensor de humedad: 1\n" +
+                        "• Sensor de luz: 1\n" +
+                        "• Batería: 1");
         p2.setImagen("mediano");
 
         Producto p3 = new Producto();
         p3.setNombre("Maceta Pequeña");
         p3.setPrecio(27);
-        p3.setMateriales("• Led rojo: 1\n• Batería: 1");
+        p3.setMateriales(
+                "• Led rojo: 2\n" +
+                        "• Led verde: 2\n" +
+                        "• Led amarillo: 2\n" +
+                        "• Maceta de plástico: Pequeña\n" +
+                        "• Sensor de humedad: 1\n" +
+                        "• Sensor de luz: 1\n" +
+                        "• Batería: 1");
         p3.setImagen("peque_o");
 
         dao.insert(p1);

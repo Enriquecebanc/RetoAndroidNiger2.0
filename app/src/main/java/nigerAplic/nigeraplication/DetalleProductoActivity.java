@@ -56,7 +56,7 @@ public class DetalleProductoActivity extends AppCompatActivity {
                     "• Led rojo: 2\n" +
                             "• Led verde: 2\n" +
                             "• Led amarillo: 2\n" +
-                            "• Maceta de plástico: Mediana\n" +
+                            "• Maceta de plástico: Grande\n" +
                             "• Sensor de humedad: 1\n" +
                             "• Sensor de luz: 1\n" +
                             "• Batería: 1");
@@ -69,7 +69,7 @@ public class DetalleProductoActivity extends AppCompatActivity {
                     "• Led rojo: 2\n" +
                             "• Led verde: 2\n" +
                             "• Led amarillo: 2\n" +
-                            "• Maceta de plástico: Pequeña\n" +
+                            "• Maceta de plástico: Grande\n" +
                             "• Sensor de humedad: 1\n" +
                             "• Sensor de luz: 1\n" +
                             "• Batería: 1");
