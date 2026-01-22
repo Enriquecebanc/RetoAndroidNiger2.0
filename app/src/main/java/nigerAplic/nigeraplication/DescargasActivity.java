@@ -19,18 +19,10 @@ public class DescargasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_descargas);
 
-<<<<<<< HEAD
         // Inicializar componentes
         btnDescargarClientes = findViewById(R.id.btnDescargarClientes);
         btnDescargarPedidos = findViewById(R.id.btnDescargarPedidos);
         btnDescargarProductos = findViewById(R.id.btnDescargarProductos);
-=======
-        // Inicializamos los componentes del XML
-        btnDescargaMasiva = findViewById(R.id.btnDescargaMasiva);
-<<<<<<< Updated upstream
-=======
->>>>>>> 415d506001d91ea907652a48d3809a9deb1949ce
->>>>>>> Stashed changes
         pbDescarga = findViewById(R.id.pbDescarga);
 
         // Listeners
