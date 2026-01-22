@@ -19,7 +19,7 @@ public class DescargasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_descargas);
 
         // Inicializamos los componentes del XML
-        btnDescargaMasiva = findViewById(R.id.btnDescargaMasiva);
+        //btnDescargaMasiva = findViewById(R.id.btnDescargaMasiva);
         pbDescarga = findViewById(R.id.pbDescarga);
 
         // Acción al pulsar el botón

@@ -19,12 +19,19 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
         void onDeleteClick(Cliente cliente);
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(Cliente cliente);
+    }
+
     private List<Cliente> clientes;
     private OnItemDeleteListener deleteListener;
+    private OnItemClickListener itemClickListener;
 
-    public ClienteAdapter(List<Cliente> clientes, OnItemDeleteListener deleteListener) {
+    public ClienteAdapter(List<Cliente> clientes, OnItemDeleteListener deleteListener,
+            OnItemClickListener itemClickListener) {
         this.clientes = clientes;
         this.deleteListener = deleteListener;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -47,6 +54,12 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
         holder.btnDelete.setOnClickListener(v -> {
             if (deleteListener != null) {
                 deleteListener.onDeleteClick(cliente);
+            }
+        });
+
+        holder.itemView.setOnClickListener(v -> {
+            if (itemClickListener != null) {
+                itemClickListener.onItemClick(cliente);
             }
         });
     }
