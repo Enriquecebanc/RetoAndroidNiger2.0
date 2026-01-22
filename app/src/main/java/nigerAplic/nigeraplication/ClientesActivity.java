@@ -66,13 +66,16 @@ public class ClientesActivity extends AppCompatActivity {
     private void mostrarOpciones(Cliente cliente) {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
         builder.setTitle("Opciones para " + cliente.getNombre());
-        builder.setItems(new CharSequence[] { "Ver ubicación", "Llamar" }, (dialog, which) -> {
+        builder.setItems(new CharSequence[] { "Ver ubicación", "Llamar", "Enviar correo" }, (dialog, which) -> {
             switch (which) {
                 case 0:
                     verEnMapa(cliente);
                     break;
                 case 1:
                     llamarCliente(cliente);
+                    break;
+                case 2:
+                    enviarCorreo(cliente);
                     break;
             }
         });
@@ -105,6 +108,17 @@ public class ClientesActivity extends AppCompatActivity {
             startActivity(intent);
         } else {
             Toast.makeText(this, "El cliente no tiene teléfono", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void enviarCorreo(Cliente cliente) {
+        String email = cliente.getEmail();
+        if (email != null && !email.isEmpty()) {
+            Intent intent = new Intent(Intent.ACTION_SENDTO);
+            intent.setData(android.net.Uri.parse("mailto:" + email));
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "El cliente no tiene email", Toast.LENGTH_SHORT).show();
         }
     }
 }
