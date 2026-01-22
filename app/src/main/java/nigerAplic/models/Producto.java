@@ -67,4 +67,19 @@ public class Producto {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Producto producto = (Producto) o;
+        return id == producto.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
 }

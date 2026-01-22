@@ -37,4 +37,13 @@
 
     </LinearLayout>
 
+    <ImageButton
+        android:id="@+id/btnEliminarCarrito"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@android:drawable/ic_menu_delete"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Eliminar producto"
+        android:layout_gravity="center_vertical" />
+
 </LinearLayout>
