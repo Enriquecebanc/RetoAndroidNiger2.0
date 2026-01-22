@@ -41,4 +41,13 @@
         android:text="Añadir al Carrito"
         android:layout_marginTop="8dp"/>
 
+    <Button
+        android:id="@+id/btnBorrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eliminar"
+        android:backgroundTint="#FF0000"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="8dp"/>
+
 </LinearLayout>

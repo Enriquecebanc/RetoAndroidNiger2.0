@@ -17,6 +17,7 @@ import java.util.List;
 import nigerAplic.models.Producto;
 import nigerAplic.nigeraplication.R;
 import nigerAplic.utils.CartManager;
+import nigerAplic.database.AppDatabase;
 
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder> {
 
@@ -74,6 +75,18 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             CartManager.getInstance().add(producto);
             Toast.makeText(context, "Añadido al carrito: " + producto.getNombre(), Toast.LENGTH_SHORT).show();
         });
+
+        holder.btnBorrar.setOnClickListener(v -> {
+            AppDatabase db = AppDatabase.getInstance(context);
+            db.productoDao().delete(producto);
+            int actualPosition = holder.getAdapterPosition();
+            if (actualPosition != RecyclerView.NO_POSITION) {
+                listaProductos.remove(actualPosition);
+                notifyItemRemoved(actualPosition);
+                notifyItemRangeChanged(actualPosition, listaProductos.size());
+                Toast.makeText(context, "Producto eliminado", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -86,7 +99,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
 
         TextView tvNombre, tvPrecio, tvMateriales;
         ImageView imgProducto;
-        Button btnAddToCart;
+        Button btnAddToCart, btnBorrar;
 
         public ProductoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +110,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             tvMateriales = itemView.findViewById(R.id.tvMateriales);
             imgProducto = itemView.findViewById(R.id.imgProducto);
             btnAddToCart = itemView.findViewById(R.id.btnAddToCart);
+            btnBorrar = itemView.findViewById(R.id.btnBorrar);
         }
     }
 }

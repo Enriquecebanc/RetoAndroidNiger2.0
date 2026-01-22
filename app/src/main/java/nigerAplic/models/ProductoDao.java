@@ -17,4 +17,7 @@ public interface ProductoDao {
 
     @Query("DELETE FROM productos")
     void deleteAll();
+
+    @androidx.room.Delete
+    void delete(Producto producto);
 }
