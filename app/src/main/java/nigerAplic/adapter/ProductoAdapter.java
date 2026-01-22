@@ -107,7 +107,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             tvNombre = itemView.findViewById(R.id.tvNombre);
             tvPrecio = itemView.findViewById(R.id.tvPrecio);
             tvMateriales = itemView.findViewById(R.id.tvMateriales);
-            tvMateriales = itemView.findViewById(R.id.tvMateriales);
+
             imgProducto = itemView.findViewById(R.id.imgProducto);
             btnAddToCart = itemView.findViewById(R.id.btnAddToCart);
             btnBorrar = itemView.findViewById(R.id.btnBorrar);
