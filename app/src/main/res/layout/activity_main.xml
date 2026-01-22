@@ -70,7 +70,7 @@
                 android:id="@+id/btnCarrito"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="VER CARRITO"
+                android:text="PEDIDOS"
                 android:layout_marginBottom="12dp"/>
 
             <Button
@@ -81,10 +81,10 @@
                 android:layout_marginBottom="12dp"/>
 
             <Button
-                android:id="@+id/btnDetalle"
+                android:id="@+id/btnProductos"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="DETALLE PRODUCTO"
+                android:text="PRODUCTOS"
                 android:layout_marginBottom="24dp"/>
 
         </LinearLayout>

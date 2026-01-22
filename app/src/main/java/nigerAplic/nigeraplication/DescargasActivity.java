@@ -1,5 +1,6 @@
 package nigerAplic.nigeraplication; // REVISA que este sea el nombre de tu paquete
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ public class DescargasActivity extends AppCompatActivity {
     private Button btnDescargaMasiva;
     private ProgressBar pbDescarga;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

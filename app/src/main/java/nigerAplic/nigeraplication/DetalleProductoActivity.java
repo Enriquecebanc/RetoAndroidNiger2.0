@@ -33,6 +33,7 @@ public class DetalleProductoActivity extends AppCompatActivity {
         db = AppDatabase.getInstance(this);
 
         // --- Insertar productos de prueba si la BD está vacía ---
+        // --- Insertar productos de prueba si la BD está vacía ---
         if (db.productoDao().getAll().isEmpty()) {
 
             Producto p1 = new Producto();
@@ -79,19 +80,26 @@ public class DetalleProductoActivity extends AppCompatActivity {
             db.productoDao().insert(p3);
         }
 
-        // --- Cargar productos ---
-        List<Producto> productos = db.productoDao().getAll();
-        adapter = new ProductoAdapter(this, productos);
-        recyclerProductos.setAdapter(adapter);
-
         // --- BOTÓN AÑADIR PRODUCTO ---
         Button btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(v -> {
             Intent intent = new Intent(
                     DetalleProductoActivity.this,
-                    AgregarProductoActivity.class
-            );
+                    AgregarProductoActivity.class);
             startActivity(intent);
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarProductos();
+    }
+
+    private void cargarProductos() {
+        // --- Cargar productos ---
+        List<Producto> productos = db.productoDao().getAll();
+        adapter = new ProductoAdapter(this, productos);
+        recyclerProductos.setAdapter(adapter);
     }
 }
