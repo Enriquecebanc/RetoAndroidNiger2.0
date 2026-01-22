@@ -24,9 +24,23 @@
         android:visibility="gone" />
 
     <Button
-        android:id="@+id/btnDescargaMasiva"
+        android:id="@+id/btnDescargarClientes"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="DESCARGAR TODO\n(Clientes, Pedidos, etc.)"/>
+        android:layout_marginBottom="16dp"
+        android:text="Descargar Clientes"/>
+
+    <Button
+        android:id="@+id/btnDescargarPedidos"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="16dp"
+        android:text="Descargar Pedidos"/>
+
+    <Button
+        android:id="@+id/btnDescargarProductos"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Descargar Productos"/>
 
 </LinearLayout>

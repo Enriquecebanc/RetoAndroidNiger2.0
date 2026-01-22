@@ -10,45 +10,57 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class DescargasActivity extends AppCompatActivity {
 
-    private Button btnDescargaMasiva;
+    private Button btnDescargarClientes, btnDescargarPedidos, btnDescargarProductos;
     private ProgressBar pbDescarga;
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Esto es lo que conecta el código con tu XML actual
         setContentView(R.layout.activity_descargas);
 
+<<<<<<< HEAD
+        // Inicializar componentes
+        btnDescargarClientes = findViewById(R.id.btnDescargarClientes);
+        btnDescargarPedidos = findViewById(R.id.btnDescargarPedidos);
+        btnDescargarProductos = findViewById(R.id.btnDescargarProductos);
+=======
         // Inicializamos los componentes del XML
         btnDescargaMasiva = findViewById(R.id.btnDescargaMasiva);
+<<<<<<< Updated upstream
+=======
+>>>>>>> 415d506001d91ea907652a48d3809a9deb1949ce
+>>>>>>> Stashed changes
         pbDescarga = findViewById(R.id.pbDescarga);
 
-        // Acción al pulsar el botón
-        btnDescargaMasiva.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                realizarDescargas();
-            }
-        });
+        // Listeners
+        btnDescargarClientes.setOnClickListener(v -> descargarClientes());
+        btnDescargarPedidos.setOnClickListener(v -> descargarPedidos());
+        btnDescargarProductos.setOnClickListener(v -> descargarProductos());
     }
 
-    private void realizarDescargas() {
-        // Mostramos la barra de carga
+    private void descargarClientes() {
+        iniciarDescarga(btnDescargarClientes, "Descargando clientes...", "Clientes descargados correctamente");
+    }
+
+    private void descargarPedidos() {
+        iniciarDescarga(btnDescargarPedidos, "Descargando pedidos...", "Pedidos descargados correctamente");
+    }
+
+    private void descargarProductos() {
+        iniciarDescarga(btnDescargarProductos, "Descargando productos...", "Productos descargados correctamente");
+    }
+
+    private void iniciarDescarga(Button btn, String mensajeInicio, String mensajeFin) {
         pbDescarga.setVisibility(View.VISIBLE);
-        btnDescargaMasiva.setEnabled(false);
-        btnDescargaMasiva.setText("Descargando...");
+        btn.setEnabled(false);
+        Toast.makeText(this, mensajeInicio, Toast.LENGTH_SHORT).show();
 
-        // Aquí simulamos la lógica de descarga
-        // En el futuro aquí irán tus llamadas a la base de datos de Clientes y Pedidos
-        Toast.makeText(this, "Descargando clientes y pedidos...", Toast.LENGTH_LONG).show();
-
-        // Simulación: detener la carga a los 3 segundos
-        btnDescargaMasiva.postDelayed(() -> {
+        // Simulación de descarga
+        new android.os.Handler().postDelayed(() -> {
             pbDescarga.setVisibility(View.GONE);
-            btnDescargaMasiva.setEnabled(true);
-            btnDescargaMasiva.setText("DESCARGAR TODO\n(Clientes, Pedidos, etc.)");
-            Toast.makeText(DescargasActivity.this, "Descarga completada", Toast.LENGTH_SHORT).show();
-        }, 3000);
+            btn.setEnabled(true);
+            Toast.makeText(DescargasActivity.this, mensajeFin, Toast.LENGTH_SHORT).show();
+        }, 2000);
     }
 }
