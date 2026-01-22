@@ -16,10 +16,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Enlace de componentes con el XML
-        Button btnClientes = findViewById(R.id.btnClientes);
-        Button btnCarrito = findViewById(R.id.btnCarrito);
-        Button btnDescargas = findViewById(R.id.btnDescargas);
-        Button btnProductos = findViewById(R.id.btnProductos);
+        // Enlace de componentes con el XML (usamos View para permitir cambiar el tipo
+        // de botón en XML)
+        android.view.View btnClientes = findViewById(R.id.btnClientes);
+        android.view.View btnCarrito = findViewById(R.id.btnCarrito);
+        android.view.View btnDescargas = findViewById(R.id.btnDescargas);
+        android.view.View btnProductos = findViewById(R.id.btnProductos);
         ImageView imgMapa = findViewById(R.id.imgMapa);
 
         // Navegación de botones
