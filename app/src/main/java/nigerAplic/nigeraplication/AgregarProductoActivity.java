@@ -127,7 +127,7 @@ public class AgregarProductoActivity extends AppCompatActivity {
             nombreImagen = null;
 
             // Opcional: Cerrar actividad para volver a la lista
-            // finish();
+            finish();
 
         } catch (Exception e) {
             Toast.makeText(this, "Error al guardar: " + e.getMessage(), Toast.LENGTH_LONG).show();
