@@ -37,7 +37,7 @@ public class CarritoActivity extends AppCompatActivity {
     }
 
     private void cargarProductos() {
-        List<Producto> listaCarrito = CartManager.getInstance().getAll();
+        List<nigerAplic.models.CartItem> listaCarrito = CartManager.getInstance().getAll();
 
         if (listaCarrito.isEmpty()) {
             Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show();
