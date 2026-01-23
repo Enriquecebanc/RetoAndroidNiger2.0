@@ -18,14 +18,31 @@ import nigerAplic.models.ProductoDao;
 
 public class InventarioActivity extends AppCompatActivity {
 
+    private RecyclerView rvProductos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inventario);
 
-        RecyclerView rvProductos = findViewById(R.id.rvProductos);
+        rvProductos = findViewById(R.id.rvProductos);
         rvProductos.setLayoutManager(new LinearLayoutManager(this));
 
+        // Botón flotante para agregar (Opcional)
+        FloatingActionButton btnAdd = findViewById(R.id.btnAddProducto);
+        btnAdd.setOnClickListener(v -> {
+            Intent intent = new Intent(InventarioActivity.this, AgregarProductoActivity.class);
+            startActivity(intent);
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarProductos();
+    }
+
+    private void cargarProductos() {
         // Cargar productos de la BD
         List<Producto> listaProductos = AppDatabase.getInstance(this).productoDao().getAll();
 
@@ -38,13 +55,6 @@ public class InventarioActivity extends AppCompatActivity {
 
         ProductoAdapter adapter = new ProductoAdapter(this, listaProductos);
         rvProductos.setAdapter(adapter);
-
-        // Botón flotante para agregar (Opcional)
-        FloatingActionButton btnAdd = findViewById(R.id.btnAddProducto);
-        btnAdd.setOnClickListener(v -> {
-            Intent intent = new Intent(InventarioActivity.this, AgregarProductoActivity.class);
-            startActivity(intent);
-        });
     }
 
     private void agregarDatosPrueba() {

@@ -12,20 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import nigerAplic.models.CartItem;
 import nigerAplic.models.Producto;
 import nigerAplic.nigeraplication.R;
+import nigerAplic.utils.CartManager;
 
 public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoViewHolder> {
 
     private Context context;
-    private List<Producto> listaCarrito;
+    private List<CartItem> listaCarrito;
     private OnItemDeletedListener deletedListener;
 
     public interface OnItemDeletedListener {
         void onItemDeleted();
     }
 
-    public CarritoAdapter(Context context, List<Producto> listaCarrito, OnItemDeletedListener deletedListener) {
+    public CarritoAdapter(Context context, List<CartItem> listaCarrito, OnItemDeletedListener deletedListener) {
         this.context = context;
         this.listaCarrito = listaCarrito;
         this.deletedListener = deletedListener;
@@ -40,13 +42,18 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
 
     @Override
     public void onBindViewHolder(@NonNull CarritoViewHolder holder, int position) {
-        Producto producto = listaCarrito.get(position);
+        CartItem item = listaCarrito.get(position);
+        Producto producto = item.getProducto();
 
         holder.tvNombre.setText(producto.getNombre());
+        // Mostrar precio unitario
         holder.tvPrecio.setText(producto.getPrecio() + "€");
+        // Mostrar cantidad inicial
+        holder.tvCantidad.setText(String.valueOf(item.getQuantity()));
+        // Mostrar total del item
+        holder.tvTotalItem.setText(String.format("%.2f €", item.getTotalPrice()));
 
-        // Cargar imagen: primero intentar como RESOURCE (para los default), si no como
-        // URI
+        // Cargar imagen
         int resId = 0;
         try {
             resId = context.getResources().getIdentifier(
@@ -68,17 +75,39 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
             }
         }
 
+        // --- Lógica de Botones + y - ---
+
+        holder.btnSumar.setOnClickListener(v -> {
+            int currentPos = holder.getAdapterPosition();
+            if (currentPos != RecyclerView.NO_POSITION) {
+                // Actualizar Manager
+                CartManager.getInstance().increaseQuantity(currentPos);
+                // Actualizar UI del item directamente
+                notifyItemChanged(currentPos);
+                // Notificar cambio de total global
+                if (deletedListener != null)
+                    deletedListener.onItemDeleted(); // Reusamos para actualizar total
+            }
+        });
+
+        holder.btnRestar.setOnClickListener(v -> {
+            int currentPos = holder.getAdapterPosition();
+            if (currentPos != RecyclerView.NO_POSITION) {
+                // Actualizar Manager
+                CartManager.getInstance().decreaseQuantity(currentPos);
+                // Actualizar UI del item directamente
+                notifyItemChanged(currentPos);
+                // Notificar cambio de total global
+                if (deletedListener != null)
+                    deletedListener.onItemDeleted(); // Reusamos para actualizar total
+            }
+        });
+
         holder.btnEliminar.setOnClickListener(v -> {
             int actualPosition = holder.getAdapterPosition();
             if (actualPosition != RecyclerView.NO_POSITION) {
-                // 1. Eliminar del Manager por índice para asegurar consistencia
-                // Asumimos que la lista del adapter está sincronizada en orden con el Manager
-                nigerAplic.utils.CartManager.getInstance().remove(actualPosition);
-
-                // 2. Eliminar de la lista local del adapter
+                CartManager.getInstance().remove(actualPosition);
                 listaCarrito.remove(actualPosition);
-
-                // 3. Notificar al adapter
                 notifyItemRemoved(actualPosition);
                 notifyItemRangeChanged(actualPosition, listaCarrito.size());
 
@@ -96,9 +125,10 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
 
     public static class CarritoViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvNombre, tvPrecio;
+        TextView tvNombre, tvPrecio, tvCantidad, tvTotalItem;
         ImageView imgProducto;
         android.widget.ImageButton btnEliminar;
+        android.widget.Button btnSumar, btnRestar;
 
         public CarritoViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -106,6 +136,12 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
             tvPrecio = itemView.findViewById(R.id.tvPrecioCarrito);
             imgProducto = itemView.findViewById(R.id.imgProductoCarrito);
             btnEliminar = itemView.findViewById(R.id.btnEliminarCarrito);
+
+            // Nuevas referencias
+            tvCantidad = itemView.findViewById(R.id.tvCantidad);
+            tvTotalItem = itemView.findViewById(R.id.tvTotalItemCarrito);
+            btnSumar = itemView.findViewById(R.id.btnSumar);
+            btnRestar = itemView.findViewById(R.id.btnRestar);
         }
     }
 }
