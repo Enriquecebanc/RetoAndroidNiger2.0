@@ -11,10 +11,11 @@ import nigerAplic.models.ClienteDao;
 import nigerAplic.models.Producto;
 import nigerAplic.models.ProductoDao;
 
-@Database(entities = { Cliente.class, Producto.class }, version = 2)
+@Database(entities = { Cliente.class, Producto.class }, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract ClienteDao clienteDao();
+
     public abstract ProductoDao productoDao();
 
     private static volatile AppDatabase INSTANCE;
@@ -24,10 +25,9 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (AppDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(
-                                    context.getApplicationContext(),
-                                    AppDatabase.class,
-                                    "niger_db"
-                            )
+                            context.getApplicationContext(),
+                            AppDatabase.class,
+                            "niger_db")
                             .allowMainThreadQueries() // SOLO para prácticas
                             .fallbackToDestructiveMigration() // IMPORTANTE al subir versión
                             .build();

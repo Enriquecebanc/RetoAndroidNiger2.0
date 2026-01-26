@@ -43,6 +43,21 @@ public class CarritoActivity extends AppCompatActivity {
                 .setTitle("Finalizar Compra")
                 .setMessage("¿Estás seguro de finalizar la compra?")
                 .setPositiveButton("Aceptar", (dialog, which) -> {
+                    // Actualizar stock en BD
+                    List<nigerAplic.models.CartItem> items = CartManager.getInstance().getAll();
+                    nigerAplic.models.ProductoDao dao = nigerAplic.database.AppDatabase.getInstance(this).productoDao();
+
+                    for (nigerAplic.models.CartItem item : items) {
+                        nigerAplic.models.Producto p = item.getProducto();
+                        int cantidadComprada = item.getQuantity();
+                        int nuevoStock = p.getStock() - cantidadComprada;
+                        if (nuevoStock < 0)
+                            nuevoStock = 0;
+
+                        p.setStock(nuevoStock);
+                        dao.update(p);
+                    }
+
                     CartManager.getInstance().clear();
                     actualizarTotal();
                     if (adapter != null) {

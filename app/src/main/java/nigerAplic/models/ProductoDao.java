@@ -12,6 +12,9 @@ public interface ProductoDao {
     @Insert
     void insert(Producto producto);
 
+    @androidx.room.Update
+    void update(Producto producto);
+
     @Query("SELECT * FROM productos")
     List<Producto> getAll();
 

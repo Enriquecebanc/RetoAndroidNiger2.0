@@ -13,6 +13,7 @@ public class Producto {
     private double precio;
     private String materiales;
     private String imagen; // nombre del drawable
+    private int stock;
 
     // Constructor vacío obligatorio para Room
     public Producto() {
@@ -66,6 +67,14 @@ public class Producto {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     @Override

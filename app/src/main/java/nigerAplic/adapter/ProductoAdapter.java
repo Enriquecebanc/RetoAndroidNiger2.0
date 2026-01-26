@@ -42,6 +42,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         Producto producto = listaProductos.get(position);
 
         holder.tvNombre.setText(producto.getNombre());
+        holder.tvStock.setText("Inventario: " + producto.getStock());
         holder.tvPrecio.setText("Precio: " + producto.getPrecio() + "€");
         holder.tvMateriales.setText(producto.getMateriales());
 
@@ -97,7 +98,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     // VIEW HOLDER
     public static class ProductoViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvNombre, tvPrecio, tvMateriales;
+        TextView tvNombre, tvPrecio, tvMateriales, tvStock;
         ImageView imgProducto;
         Button btnAddToCart, btnBorrar;
 
@@ -105,6 +106,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             super(itemView);
 
             tvNombre = itemView.findViewById(R.id.tvNombre);
+            tvStock = itemView.findViewById(R.id.tvStock);
             tvPrecio = itemView.findViewById(R.id.tvPrecio);
             tvMateriales = itemView.findViewById(R.id.tvMateriales);
 
