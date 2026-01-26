@@ -72,6 +72,7 @@ public class InventarioActivity extends AppCompatActivity {
                         "• Sensor de luz: 1\n" +
                         "• Batería: 1");
         p1.setImagen("grande");
+        p1.setStock(100);
 
         Producto p2 = new Producto();
         p2.setNombre("Maceta Mediana");
@@ -85,6 +86,7 @@ public class InventarioActivity extends AppCompatActivity {
                         "• Sensor de luz: 1\n" +
                         "• Batería: 1");
         p2.setImagen("mediano");
+        p2.setStock(100);
 
         Producto p3 = new Producto();
         p3.setNombre("Maceta Pequeña");
@@ -98,6 +100,7 @@ public class InventarioActivity extends AppCompatActivity {
                         "• Sensor de luz: 1\n" +
                         "• Batería: 1");
         p3.setImagen("peque_o");
+        p3.setStock(100);
 
         dao.insert(p1);
         dao.insert(p2);

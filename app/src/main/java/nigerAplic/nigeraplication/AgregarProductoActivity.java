@@ -21,7 +21,7 @@ public class AgregarProductoActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
-    private EditText etNombre, etPrecio, etMateriales;
+    private EditText etNombre, etPrecio, etMateriales, etStock;
     private TextView tvImagenSeleccionada;
     private Button btnSeleccionarImagen, btnGuardar;
 
@@ -36,6 +36,7 @@ public class AgregarProductoActivity extends AppCompatActivity {
         // Vincular vistas
         etNombre = findViewById(R.id.etNombre);
         etPrecio = findViewById(R.id.etPrecio);
+        etStock = findViewById(R.id.etStock);
         etMateriales = findViewById(R.id.etMateriales);
         tvImagenSeleccionada = findViewById(R.id.tvImagenSeleccionada);
         btnSeleccionarImagen = findViewById(R.id.btnSeleccionarImagen);
@@ -89,18 +90,22 @@ public class AgregarProductoActivity extends AppCompatActivity {
     private void guardarProducto() {
         String nombre = etNombre.getText().toString().trim();
         String precioStr = etPrecio.getText().toString().trim();
+        String stockStr = etStock.getText().toString().trim();
         String materiales = etMateriales.getText().toString().trim();
 
-        if (nombre.isEmpty() || precioStr.isEmpty() || materiales.isEmpty() || nombreImagen == null) {
+        if (nombre.isEmpty() || precioStr.isEmpty() || stockStr.isEmpty() || materiales.isEmpty()
+                || nombreImagen == null) {
             Toast.makeText(this, "Completa todos los campos y selecciona una imagen", Toast.LENGTH_SHORT).show();
             return;
         }
 
         double precio;
+        int stock;
         try {
             precio = Double.parseDouble(precioStr);
+            stock = Integer.parseInt(stockStr);
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Precio inválido", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Precio o stock inválido", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -109,6 +114,7 @@ public class AgregarProductoActivity extends AppCompatActivity {
             Producto nuevoProducto = new Producto();
             nuevoProducto.setNombre(nombre);
             nuevoProducto.setPrecio(precio);
+            nuevoProducto.setStock(stock);
             nuevoProducto.setMateriales(materiales);
             // GUARDAR LA URI COMPLETA (como String), no solo el nombre del archivo
             nuevoProducto.setImagen(imagenUri.toString());

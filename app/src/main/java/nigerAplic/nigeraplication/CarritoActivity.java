@@ -43,6 +43,21 @@ public class CarritoActivity extends AppCompatActivity {
                 .setTitle("Finalizar Compra")
                 .setMessage("¿Estás seguro de finalizar la compra?")
                 .setPositiveButton("Aceptar", (dialog, which) -> {
+                    // Actualizar stock en BD
+                    List<nigerAplic.models.CartItem> items = CartManager.getInstance().getAll();
+                    nigerAplic.models.ProductoDao dao = nigerAplic.database.AppDatabase.getInstance(this).productoDao();
+
+                    for (nigerAplic.models.CartItem item : items) {
+                        nigerAplic.models.Producto p = item.getProducto();
+                        int cantidadComprada = item.getQuantity();
+                        int nuevoStock = p.getStock() - cantidadComprada;
+                        if (nuevoStock < 0)
+                            nuevoStock = 0;
+
+                        p.setStock(nuevoStock);
+                        dao.update(p);
+                    }
+
                     CartManager.getInstance().clear();
                     actualizarTotal();
                     if (adapter != null) {
@@ -50,6 +65,14 @@ public class CarritoActivity extends AppCompatActivity {
                         cargarProductos(); // Recargar lista vacía
                     }
                     Toast.makeText(this, "Compra realizada con éxito", Toast.LENGTH_LONG).show();
+
+                    // Navegar al menú principal
+                    android.content.Intent intent = new android.content.Intent(CarritoActivity.this,
+                            MainActivity.class);
+                    intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            | android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish(); // Cerrar la actividad actual
                 })
                 .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
                 .create()
