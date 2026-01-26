@@ -4,43 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:padding="24dp"
     tools:context=".DescargasActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Zona de Descargas"
-        android:textSize="24sp"
+        android:text="ZONA DE DESCARGAS"
+        android:textSize="26sp"
         android:textStyle="bold"
+        android:textColor="#1A237E"
         android:layout_marginBottom="32dp"/>
 
-    <ProgressBar
-        android:id="@+id/pbDescarga"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/btnDescargarClientes"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:text="Descargar Clientes"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/btnDescargarPedidos"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        android:text="Descargar Pedidos"/>
+        <ProgressBar
+            android:id="@+id/pbDescarga"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:visibility="gone" />
 
-    <Button
-        android:id="@+id/btnDescargarProductos"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Descargar Productos"/>
+        <Button
+            android:id="@+id/btnDescargarClientes"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:text="Descargar Clientes"/>
+
+        <Button
+            android:id="@+id/btnDescargarPedidos"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            android:text="Descargar Pedidos"/>
+
+        <Button
+            android:id="@+id/btnDescargarProductos"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Descargar Productos"/>
+
+    </LinearLayout>
 
 </LinearLayout>
