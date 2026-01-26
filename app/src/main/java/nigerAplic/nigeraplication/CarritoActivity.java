@@ -65,6 +65,14 @@ public class CarritoActivity extends AppCompatActivity {
                         cargarProductos(); // Recargar lista vacía
                     }
                     Toast.makeText(this, "Compra realizada con éxito", Toast.LENGTH_LONG).show();
+
+                    // Navegar al menú principal
+                    android.content.Intent intent = new android.content.Intent(CarritoActivity.this,
+                            MainActivity.class);
+                    intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            | android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish(); // Cerrar la actividad actual
                 })
                 .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
                 .create()
