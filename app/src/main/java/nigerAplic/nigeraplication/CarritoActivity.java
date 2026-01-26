@@ -28,6 +28,32 @@ public class CarritoActivity extends AppCompatActivity {
         recyclerCarrito = findViewById(R.id.recyclerCarrito);
         tvTotalCarrito = findViewById(R.id.tvTotalCarrito);
         recyclerCarrito.setLayoutManager(new LinearLayoutManager(this));
+
+        android.widget.Button btnFinalizarCompra = findViewById(R.id.btnFinalizarCompra);
+        btnFinalizarCompra.setOnClickListener(v -> mostrarDialogoConfirmacion());
+    }
+
+    private void mostrarDialogoConfirmacion() {
+        if (CartManager.getInstance().getAll().isEmpty()) {
+            Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Finalizar Compra")
+                .setMessage("¿Estás seguro de finalizar la compra?")
+                .setPositiveButton("Aceptar", (dialog, which) -> {
+                    CartManager.getInstance().clear();
+                    actualizarTotal();
+                    if (adapter != null) {
+                        adapter.notifyDataSetChanged();
+                        cargarProductos(); // Recargar lista vacía
+                    }
+                    Toast.makeText(this, "Compra realizada con éxito", Toast.LENGTH_LONG).show();
+                })
+                .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
+                .create()
+                .show();
     }
 
     @Override
