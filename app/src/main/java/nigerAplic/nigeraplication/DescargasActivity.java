@@ -12,6 +12,14 @@ import java.util.List;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Environment;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.annotation.NonNull;
+import android.util.Log;
 
 import nigerAplic.nigeraplication.R;
 
@@ -19,6 +27,8 @@ public class DescargasActivity extends AppCompatActivity {
 
     private Button btnDescargarClientes, btnDescargarPedidos, btnDescargarProductos;
     private ProgressBar pbDescarga;
+    private static final int REQUEST_WRITE_PERMISSION = 100;
+    private Runnable pendingAction;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -33,9 +43,42 @@ public class DescargasActivity extends AppCompatActivity {
         pbDescarga = findViewById(R.id.pbDescarga);
 
         // Listeners
-        btnDescargarClientes.setOnClickListener(v -> descargarClientes());
-        btnDescargarPedidos.setOnClickListener(v -> descargarPedidos());
-        btnDescargarProductos.setOnClickListener(v -> descargarProductos());
+        btnDescargarClientes.setOnClickListener(v -> checkPermissionAndDownload(this::descargarClientes));
+        btnDescargarPedidos.setOnClickListener(v -> checkPermissionAndDownload(this::descargarPedidos));
+        btnDescargarProductos.setOnClickListener(v -> checkPermissionAndDownload(this::descargarProductos));
+    }
+
+    private void checkPermissionAndDownload(Runnable action) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                pendingAction = action;
+                ActivityCompat.requestPermissions(this,
+                        new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
+                        REQUEST_WRITE_PERMISSION);
+            } else {
+                action.run();
+            }
+        } else {
+            action.run();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_WRITE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (pendingAction != null) {
+                    pendingAction.run();
+                    pendingAction = null;
+                }
+            } else {
+                Toast.makeText(this, "Permiso necesario para descargar archivos en versiones anteriores de Android",
+                        Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     private void descargarClientes() {
@@ -87,15 +130,17 @@ public class DescargasActivity extends AppCompatActivity {
 
             try {
                 // Usamos CartManager como fuente de "pedidos" actual
-                List<nigerAplic.models.Producto> pedidos = nigerAplic.utils.CartManager.getInstance().getAll();
+                List<nigerAplic.models.CartItem> cartItems = nigerAplic.utils.CartManager.getInstance().getAll();
                 StringBuilder csvData = new StringBuilder();
-                csvData.append("ID,Producto,Precio,Materiales\n");
+                csvData.append("ID,Producto,Precio,Materiales,Cantidad\n");
 
-                for (nigerAplic.models.Producto p : pedidos) {
+                for (nigerAplic.models.CartItem item : cartItems) {
+                    nigerAplic.models.Producto p = item.getProducto();
                     csvData.append(p.getId()).append(",")
                             .append(escapeCsv(p.getNombre())).append(",")
                             .append(p.getPrecio()).append(",")
-                            .append(escapeCsv(p.getMateriales())).append("\n");
+                            .append(escapeCsv(p.getMateriales())).append(",")
+                            .append(item.getQuantity()).append("\n");
                 }
 
                 saveToCsv("pedidos.csv", csvData.toString());
@@ -156,21 +201,34 @@ public class DescargasActivity extends AppCompatActivity {
     }
 
     private void saveToCsv(String fileName, String data) throws java.io.IOException {
-        android.content.ContentValues values = new android.content.ContentValues();
-        values.put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, fileName);
-        values.put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "text/csv");
-        values.put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, android.os.Environment.DIRECTORY_DOWNLOADS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            android.content.ContentValues values = new android.content.ContentValues();
+            values.put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, fileName);
+            values.put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "text/csv");
+            values.put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH,
+                    android.os.Environment.DIRECTORY_DOWNLOADS);
 
-        android.net.Uri uri = getContentResolver().insert(android.provider.MediaStore.Downloads.EXTERNAL_CONTENT_URI,
-                values);
-        if (uri != null) {
-            try (java.io.OutputStream outputStream = getContentResolver().openOutputStream(uri)) {
-                if (outputStream != null) {
-                    outputStream.write(data.getBytes());
+            android.net.Uri uri = getContentResolver().insert(
+                    android.provider.MediaStore.Downloads.EXTERNAL_CONTENT_URI,
+                    values);
+            if (uri != null) {
+                try (java.io.OutputStream outputStream = getContentResolver().openOutputStream(uri)) {
+                    if (outputStream != null) {
+                        outputStream.write(data.getBytes());
+                    }
                 }
+            } else {
+                throw new java.io.IOException("No se pudo crear el archivo en Descargas");
             }
         } else {
-            throw new java.io.IOException("No se pudo crear el archivo en Descargas");
+            File downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+            if (!downloadsDir.exists()) {
+                downloadsDir.mkdirs();
+            }
+            File file = new File(downloadsDir, fileName);
+            try (FileWriter writer = new FileWriter(file)) {
+                writer.write(data);
+            }
         }
     }
 
