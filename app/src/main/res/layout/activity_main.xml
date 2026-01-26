@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffffff"
     tools:context=".MainActivity">
 
     <ScrollView
@@ -15,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="24dp"
+            android:clipToPadding="false">
 
             <ImageView
                 android:id="@+id/imgLogo"
@@ -29,24 +31,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="MENÚ PRINCIPAL"
-                android:textSize="28sp"
+                android:textSize="26sp"
                 android:textStyle="bold"
+                android:textColor="#1A237E"
                 android:gravity="center"
-                android:layout_marginBottom="24dp"/>
+                android:letterSpacing="0.05"
+                android:layout_marginBottom="32dp"/>
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Nuestra Sede: Alto Deba, Bergara"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+                
+                <ImageView
+                     android:layout_width="16dp"
+                     android:layout_height="16dp"
+                     android:src="@android:drawable/ic_menu_myplaces"
+                     app:tint="#546E7A"
+                     android:layout_marginEnd="8dp"
+                     android:contentDescription="Icono ubicación"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nuestra Sede: Alto Deba, Bergara"
+                    android:textSize="14sp"
+                    android:textColor="#546E7A"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="6dp"
                 android:layout_marginBottom="32dp">
 
                 <ImageView
@@ -56,7 +77,8 @@
                     android:src="@drawable/mapa_sede"
                     android:scaleType="centerCrop"
                     android:clickable="true"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"/>
             </androidx.cardview.widget.CardView>
 
             <!-- GRID DE MENÚ CON ICONOS -->
@@ -67,7 +89,7 @@
                 android:rowCount="2"
                 android:alignmentMode="alignMargins"
                 android:columnOrderPreserved="false"
-                android:useDefaultMargins="true">
+                android:useDefaultMargins="false">
 
                 <!-- ITEM 1: CLIENTES -->
                 <androidx.cardview.widget.CardView
@@ -76,8 +98,9 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="#FFFFFF"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground">
@@ -86,22 +109,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp"
+                        android:padding="20dp"
                         android:gravity="center">
 
                         <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
                             android:src="@drawable/ic_cliente_24"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="12dp"
                             app:tint="#4CAF50"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="CLIENTES"
+                            android:textSize="14sp"
                             android:textStyle="bold"
-                            android:textColor="#333333"/>
+                            android:textColor="#263238"
+                            android:letterSpacing="0.05"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -112,8 +137,9 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="#FFFFFF"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground">
@@ -122,22 +148,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp"
+                        android:padding="20dp"
                         android:gravity="center">
 
                         <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
                             android:src="@drawable/ic_carrito_24"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="12dp"
                             app:tint="#2196F3"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="PEDIDOS"
+                            android:textSize="14sp"
                             android:textStyle="bold"
-                            android:textColor="#333333"/>
+                            android:textColor="#263238"
+                            android:letterSpacing="0.05"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -148,8 +176,9 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="#FFFFFF"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground">
@@ -158,22 +187,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp"
+                        android:padding="20dp"
                         android:gravity="center">
 
                         <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
                             android:src="@drawable/ic_descarga_24"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="12dp"
                             app:tint="#FF9800"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="DESCARGAS"
+                            android:textSize="14sp"
                             android:textStyle="bold"
-                            android:textColor="#333333"/>
+                            android:textColor="#263238"
+                            android:letterSpacing="0.05"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -184,8 +215,9 @@
                     android:layout_height="wrap_content"
                     android:layout_columnWeight="1"
                     android:layout_margin="8dp"
-                    app:cardCornerRadius="16dp"
-                    app:cardElevation="4dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="#FFFFFF"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground">
@@ -194,22 +226,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="16dp"
+                        android:padding="20dp"
                         android:gravity="center">
 
                         <ImageView
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
                             android:src="@drawable/ic_producto_24"
-                            android:layout_marginBottom="8dp"
+                            android:layout_marginBottom="12dp"
                             app:tint="#9C27B0"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="PRODUCTOS"
+                            android:textSize="14sp"
                             android:textStyle="bold"
-                            android:textColor="#333333"/>
+                            android:textColor="#263238"
+                            android:letterSpacing="0.05"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
