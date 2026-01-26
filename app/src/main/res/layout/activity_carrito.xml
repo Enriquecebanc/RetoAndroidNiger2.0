@@ -33,6 +33,7 @@
         android:id="@+id/tvTotalCarrito"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/btnFinalizarCompra"
         android:text="Total: 0.00 €"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -41,6 +42,20 @@
         android:padding="16dp"
         android:gravity="center"
         android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/btnFinalizarCompra"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="FINALIZAR COMPRA"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#007BFF"
+        android:layout_margin="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
