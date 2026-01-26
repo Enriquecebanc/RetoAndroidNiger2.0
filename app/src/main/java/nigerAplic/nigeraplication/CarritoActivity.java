@@ -30,14 +30,49 @@ public class CarritoActivity extends AppCompatActivity {
         recyclerCarrito.setLayoutManager(new LinearLayoutManager(this));
 
         android.widget.Button btnFinalizarCompra = findViewById(R.id.btnFinalizarCompra);
-        btnFinalizarCompra.setOnClickListener(v -> mostrarDialogoConfirmacion());
+        btnFinalizarCompra.setOnClickListener(v -> mostrarDialogoSeleccionCliente());
     }
 
-    private void mostrarDialogoConfirmacion() {
+    private void mostrarDialogoSeleccionCliente() {
         if (CartManager.getInstance().getAll().isEmpty()) {
             Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        nigerAplic.models.ClienteDao clienteDao = nigerAplic.database.AppDatabase.getInstance(this).clienteDao();
+        List<nigerAplic.models.Cliente> clientes = clienteDao.getAll();
+
+        if (clientes.isEmpty()) {
+            Toast.makeText(this, "No hay clientes registrados. Por favor, crea un cliente primero.", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        }
+
+        String[] nombresClientes = new String[clientes.size()];
+        for (int i = 0; i < clientes.size(); i++) {
+            nombresClientes[i] = clientes.get(i).getNombre() + " " + clientes.get(i).getApellido();
+        }
+
+        final int[] selectedPosition = { -1 };
+
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Seleccionar Cliente")
+                .setSingleChoiceItems(nombresClientes, -1, (dialog, which) -> {
+                    selectedPosition[0] = which;
+                })
+                .setPositiveButton("Aceptar", (dialog, which) -> {
+                    if (selectedPosition[0] != -1) {
+                        mostrarDialogoConfirmacion(clientes.get(selectedPosition[0]));
+                    } else {
+                        Toast.makeText(this, "Debes seleccionar un cliente", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
+                .create()
+                .show();
+    }
+
+    private void mostrarDialogoConfirmacion(nigerAplic.models.Cliente clienteSeleccionado) {
 
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Finalizar Compra")
