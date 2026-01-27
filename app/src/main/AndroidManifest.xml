@@ -19,6 +19,7 @@
         <activity android:name=".DescargasActivity" android:exported="false" />
         <activity android:name=".CarritoActivity" android:exported="false" />
         <activity android:name=".InventarioActivity" android:exported="false" />
+        <activity android:name=".PedidosActivity" android:exported="false" />
 
         <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
