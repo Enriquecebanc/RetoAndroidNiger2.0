@@ -28,28 +28,43 @@
             android:id="@+id/pbDescarga"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="32dp"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/btnDescargarClientes"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="16dp"
-            android:text="Descargar Clientes"/>
+            android:layout_height="80dp"
+            android:layout_marginBottom="24dp"
+            android:text="Descargar Clientes"
+            android:drawableStart="@drawable/ic_cliente_24"
+            android:drawablePadding="16dp"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:textSize="16sp"/>
 
         <Button
             android:id="@+id/btnDescargarPedidos"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="16dp"
-            android:text="Descargar Pedidos"/>
+            android:layout_height="80dp"
+            android:layout_marginBottom="24dp"
+            android:text="Descargar Pedidos"
+            android:drawableStart="@drawable/ic_carrito_24"
+            android:drawablePadding="16dp"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:textSize="16sp"/>
 
         <Button
             android:id="@+id/btnDescargarProductos"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Descargar Productos"/>
+            android:layout_height="80dp"
+            android:text="Descargar Productos"
+            android:drawableStart="@drawable/ic_producto_24"
+            android:drawablePadding="16dp"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:textSize="16sp"/>
 
     </LinearLayout>
 
