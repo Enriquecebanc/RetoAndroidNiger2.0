@@ -129,18 +129,18 @@ public class DescargasActivity extends AppCompatActivity {
             });
 
             try {
-                // Usamos CartManager como fuente de "pedidos" actual
-                List<nigerAplic.models.CartItem> cartItems = nigerAplic.utils.CartManager.getInstance().getAll();
+                // Obtener todos los pedidos de la base de datos
+                List<nigerAplic.models.Pedidin> pedidos = nigerAplic.database.AppDatabase.getInstance(this)
+                        .pedidinDao().getAll();
                 StringBuilder csvData = new StringBuilder();
-                csvData.append("ID,Producto,Precio,Materiales,Cantidad\n");
+                csvData.append("ID,Cliente,Total,Fecha,Productos\n");
 
-                for (nigerAplic.models.CartItem item : cartItems) {
-                    nigerAplic.models.Producto p = item.getProducto();
+                for (nigerAplic.models.Pedidin p : pedidos) {
                     csvData.append(p.getId()).append(",")
-                            .append(escapeCsv(p.getNombre())).append(",")
-                            .append(p.getPrecio()).append(",")
-                            .append(escapeCsv(p.getMateriales())).append(",")
-                            .append(item.getQuantity()).append("\n");
+                            .append(escapeCsv(p.getClienteNombre())).append(",")
+                            .append(p.getTotal()).append(",")
+                            .append(escapeCsv(p.getFecha())).append(",")
+                            .append(escapeCsv(p.getProductosResumen())).append("\n");
                 }
 
                 saveToCsv("pedidos.csv", csvData.toString());
