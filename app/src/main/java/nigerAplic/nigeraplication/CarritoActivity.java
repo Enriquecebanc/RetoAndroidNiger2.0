@@ -8,10 +8,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import nigerAplic.adapter.CarritoAdapter;
 import nigerAplic.models.Producto;
+import nigerAplic.models.Cliente;
+import nigerAplic.models.ClienteDao;
+import nigerAplic.models.CartItem;
+import nigerAplic.models.ProductoDao;
+import nigerAplic.models.Pedidin;
+import nigerAplic.models.PedidinDao;
 import nigerAplic.utils.CartManager;
+import nigerAplic.database.AppDatabase;
 
 public class CarritoActivity extends AppCompatActivity {
 
@@ -39,8 +49,8 @@ public class CarritoActivity extends AppCompatActivity {
             return;
         }
 
-        nigerAplic.models.ClienteDao clienteDao = nigerAplic.database.AppDatabase.getInstance(this).clienteDao();
-        List<nigerAplic.models.Cliente> clientes = clienteDao.getAll();
+        ClienteDao clienteDao = AppDatabase.getInstance(this).clienteDao();
+        List<Cliente> clientes = clienteDao.getAll();
 
         if (clientes.isEmpty()) {
             Toast.makeText(this, "No hay clientes registrados. Por favor, crea un cliente primero.", Toast.LENGTH_LONG)
@@ -72,18 +82,18 @@ public class CarritoActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void mostrarDialogoConfirmacion(nigerAplic.models.Cliente clienteSeleccionado) {
+    private void mostrarDialogoConfirmacion(Cliente clienteSeleccionado) {
 
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Finalizar Compra")
                 .setMessage("¿Estás seguro de finalizar la compra?")
                 .setPositiveButton("Aceptar", (dialog, which) -> {
                     // Actualizar stock en BD
-                    List<nigerAplic.models.CartItem> items = CartManager.getInstance().getAll();
-                    nigerAplic.models.ProductoDao dao = nigerAplic.database.AppDatabase.getInstance(this).productoDao();
+                    List<CartItem> items = CartManager.getInstance().getAll();
+                    ProductoDao dao = AppDatabase.getInstance(this).productoDao();
 
-                    for (nigerAplic.models.CartItem item : items) {
-                        nigerAplic.models.Producto p = item.getProducto();
+                    for (CartItem item : items) {
+                        Producto p = item.getProducto();
                         int cantidadComprada = item.getQuantity();
                         int nuevoStock = p.getStock() - cantidadComprada;
                         if (nuevoStock < 0)
@@ -92,6 +102,33 @@ public class CarritoActivity extends AppCompatActivity {
                         p.setStock(nuevoStock);
                         dao.update(p);
                     }
+
+                    // GUARDAR PEDIDO
+                    StringBuilder productosResumen = new StringBuilder();
+                    for (CartItem item : items) {
+                        productosResumen.append(item.getProducto().getNombre())
+                                .append(" x")
+                                .append(item.getQuantity())
+                                .append(", ");
+                    }
+                    // Quitar última coma y espacio si existe
+                    if (productosResumen.length() > 0) {
+                        productosResumen.setLength(productosResumen.length() - 2);
+                    }
+
+                    String fechaActual = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+                            .format(new Date());
+
+                    double totalCompra = CartManager.getInstance().calculateTotal();
+                    String nombreCliente = clienteSeleccionado.getNombre() + " " + clienteSeleccionado.getApellido();
+
+                    Pedidin nuevoPedido = new Pedidin(
+                            nombreCliente,
+                            totalCompra,
+                            fechaActual,
+                            productosResumen.toString());
+
+                    AppDatabase.getInstance(this).pedidinDao().insert(nuevoPedido);
 
                     CartManager.getInstance().clear();
                     actualizarTotal();
