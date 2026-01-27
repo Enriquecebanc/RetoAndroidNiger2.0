@@ -88,6 +88,16 @@ public class DetalleProductoActivity extends AppCompatActivity {
                     AgregarProductoActivity.class);
             startActivity(intent);
         });
+
+// --- BOTÓN IR AL CARRITO ---
+        Button btnAd = findViewById(R.id.btnAd);
+        btnAd.setOnClickListener(v -> {
+            Intent intent = new Intent(
+                    DetalleProductoActivity.this,
+                    CarritoActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     @Override
