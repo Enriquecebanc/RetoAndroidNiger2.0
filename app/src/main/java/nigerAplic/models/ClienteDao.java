@@ -17,4 +17,7 @@ public interface ClienteDao {
 
     @Query("SELECT * FROM clientes")
     List<Cliente> getAll();
+
+    @Query("SELECT * FROM clientes WHERE (nombre || ' ' || apellido) = :fullName LIMIT 1")
+    Cliente getClienteByFullName(String fullName);
 }

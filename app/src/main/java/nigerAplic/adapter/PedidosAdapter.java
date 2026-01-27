@@ -16,9 +16,15 @@ import nigerAplic.nigeraplication.R;
 public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoViewHolder> {
 
     private List<Pedidin> pedidos;
+    private OnPedidoClickListener listener;
 
-    public PedidosAdapter(List<Pedidin> pedidos) {
+    public interface OnPedidoClickListener {
+        void onPedidoClick(Pedidin pedido);
+    }
+
+    public PedidosAdapter(List<Pedidin> pedidos, OnPedidoClickListener listener) {
         this.pedidos = pedidos;
+        this.listener = listener;
     }
 
     @NonNull
@@ -35,6 +41,12 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoVi
         holder.tvTotalPedido.setText(String.format("%.2f €", pedido.getTotal()));
         holder.tvClientePedido.setText("Cliente: " + pedido.getClienteNombre());
         holder.tvProductosResumen.setText(pedido.getProductosResumen());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onPedidoClick(pedido);
+            }
+        });
     }
 
     @Override
