@@ -45,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        android.view.View btnPedidos = findViewById(R.id.btnPedidos);
+        btnPedidos.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, PedidosActivity.class);
+            startActivity(intent);
+        });
+
         // Lógica para el mapa (imagen interactiva)
         imgMapa.setOnClickListener(v -> {
             // Coordenadas de Mancomunidad del Alto Deba

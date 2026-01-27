@@ -33,7 +33,7 @@
                 android:text="MENÚ PRINCIPAL"
                 android:textSize="26sp"
                 android:textStyle="bold"
-                android:textColor="#1A237E"
+                android:textColor="#283593"
                 android:gravity="center"
                 android:letterSpacing="0.05"
                 android:layout_marginBottom="32dp"/>
@@ -50,7 +50,7 @@
                      android:layout_width="16dp"
                      android:layout_height="16dp"
                      android:src="@android:drawable/ic_menu_myplaces"
-                     app:tint="#546E7A"
+                     app:tint="#5C6BC0"
                      android:layout_marginEnd="8dp"
                      android:contentDescription="Icono ubicación"/>
 
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:text="Nuestra Sede: Alto Deba, Bergara"
                     android:textSize="14sp"
-                    android:textColor="#546E7A"
+                    android:textColor="#283593"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:columnCount="2"
-                android:rowCount="2"
+                android:rowCount="3"
                 android:alignmentMode="alignMargins"
                 android:columnOrderPreserved="false"
                 android:useDefaultMargins="false">
@@ -117,15 +117,14 @@
                             android:layout_height="56dp"
                             android:src="@drawable/ic_cliente_24"
                             android:layout_marginBottom="12dp"
-                            app:tint="#4CAF50"/>
-
+                            app:tint="#283593"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="CLIENTES"
                             android:textSize="14sp"
                             android:textStyle="bold"
-                            android:textColor="#263238"
+                            android:textColor="#283593"
                             android:letterSpacing="0.05"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -156,15 +155,15 @@
                             android:layout_height="56dp"
                             android:src="@drawable/ic_carrito_24"
                             android:layout_marginBottom="12dp"
-                            app:tint="#2196F3"/>
+                            app:tint="#283593"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="PEDIDOS"
+                            android:text="CARRITO"
                             android:textSize="14sp"
                             android:textStyle="bold"
-                            android:textColor="#263238"
+                            android:textColor="#283593"
                             android:letterSpacing="0.05"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -195,7 +194,7 @@
                             android:layout_height="56dp"
                             android:src="@drawable/ic_descarga_24"
                             android:layout_marginBottom="12dp"
-                            app:tint="#FF9800"/>
+                            app:tint="#283593"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -203,7 +202,7 @@
                             android:text="DESCARGAS"
                             android:textSize="14sp"
                             android:textStyle="bold"
-                            android:textColor="#263238"
+                            android:textColor="#283593"
                             android:letterSpacing="0.05"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -234,7 +233,7 @@
                             android:layout_height="56dp"
                             android:src="@drawable/ic_producto_24"
                             android:layout_marginBottom="12dp"
-                            app:tint="#9C27B0"/>
+                            app:tint="#283593"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -242,7 +241,47 @@
                             android:text="PRODUCTOS"
                             android:textSize="14sp"
                             android:textStyle="bold"
-                            android:textColor="#263238"
+                            android:textColor="#283593"
+                            android:letterSpacing="0.05"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- ITEM 5: PEDIDOS -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnPedidos"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="8dp"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="6dp"
+                    app:cardBackgroundColor="#FFFFFF"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="20dp"
+                        android:gravity="center">
+
+                        <!-- Assuming there is an icon for pedidos, using ic_history_24 as placeholder or similar -->
+                        <ImageView
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:src="@drawable/ic_history_24"
+                            android:layout_marginBottom="12dp"
+                            app:tint="#283593"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PEDIDOS"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#283593"
                             android:letterSpacing="0.05"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

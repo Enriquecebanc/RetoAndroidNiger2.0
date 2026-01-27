@@ -34,6 +34,13 @@ public class InventarioActivity extends AppCompatActivity {
             Intent intent = new Intent(InventarioActivity.this, AgregarProductoActivity.class);
             startActivity(intent);
         });
+
+        // Botón flotante para ir al carrito
+        FloatingActionButton btnCart = findViewById(R.id.btnGoToCart);
+        btnCart.setOnClickListener(v -> {
+            Intent intent = new Intent(InventarioActivity.this, CarritoActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
