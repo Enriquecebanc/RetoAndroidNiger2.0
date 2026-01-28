@@ -54,7 +54,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         holder.tvMateriales.setText(producto.getMateriales());
 
         // Cargar imagen
-        // Primero intentamos ver si la imagen es un recurso interno de la app 
+        // Primero intentamos ver si la imagen es un recurso interno de la app
         int resId = 0;
         try {
             resId = context.getResources().getIdentifier(
