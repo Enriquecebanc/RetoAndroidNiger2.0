@@ -8,8 +8,9 @@
     android:background="#E0E0E0"
     android:layout_margin="10dp"
     android:layout_marginTop="10dp">
+    <!-- Este archivo define cómo se ve UN solo producto en la lista -->
 
-
+    <!-- Contenedor para la parte superior de la tarjeta (Nombre y Stock) -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -33,12 +34,14 @@
             android:text="Inventario: 0"/>
     </RelativeLayout>
 
+    <!-- Precio del producto -->
     <TextView
         android:id="@+id/tvPrecio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"/>
 
+    <!-- Imagen del producto -->
     <ImageView
         android:id="@+id/imgProducto"
         android:layout_width="match_parent"
@@ -46,6 +49,7 @@
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"/>
 
+    <!-- Texto con la lista de materiales -->
     <TextView
         android:id="@+id/tvMateriales"
         android:layout_width="match_parent"
@@ -56,7 +60,7 @@
         android:maxLines="20"
         android:ellipsize="none"/>
 
-
+    <!-- Botón para añadir al carrito -->
     <Button
         android:id="@+id/btnAddToCart"
         android:layout_width="match_parent"

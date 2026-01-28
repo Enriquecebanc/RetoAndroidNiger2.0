@@ -16,21 +16,29 @@ import nigerAplic.database.AppDatabase;
 import nigerAplic.models.Producto;
 import nigerAplic.models.ProductoDao;
 
+// Esta clase representa la pantalla principal del inventario.
 public class InventarioActivity extends AppCompatActivity {
 
+    // Variable para la lista visual de productos
     private RecyclerView rvProductos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Carga el diseño visual desde activity_inventario.xml
         setContentView(R.layout.activity_inventario);
 
+        // Preparamos la lista (RecyclerView) donde se verán los productos
         rvProductos = findViewById(R.id.rvProductos);
+        // Decimos que los productos se muestren en una lista vertical
         rvProductos.setLayoutManager(new LinearLayoutManager(this));
 
-        // Botón flotante para agregar (Opcional)
+        //  Configuración de botones
+
+        // Botón flotante para ir a la pantalla de añadir producto
         FloatingActionButton btnAdd = findViewById(R.id.btnAddProducto);
         btnAdd.setOnClickListener(v -> {
+            // Abrimos la actividad AgregarProductoActivity
             Intent intent = new Intent(InventarioActivity.this, AgregarProductoActivity.class);
             startActivity(intent);
         });
@@ -43,27 +51,35 @@ public class InventarioActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * Este método se llama cada vez que la pantalla vuelve a ser visible.
+     * Es ideal para recargar la lista de productos por si añadimos uno nuevo.
+     */
     @Override
     protected void onResume() {
         super.onResume();
         cargarProductos();
     }
 
+    // Método para obtener los productos de la base de datos y mostrarlos
     private void cargarProductos() {
-        // Cargar productos de la BD
+        // Pedimos a la base de datos que nos dé todos los productos guardados
         List<Producto> listaProductos = AppDatabase.getInstance(this).productoDao().getAll();
 
-        // Si la lista está vacía, agregar datos de prueba (Opcional, para que el
-        // usuario vea algo)
+        // Si no hay productos, creamos unos de prueba para que no se vea vacío
         if (listaProductos.isEmpty()) {
             agregarDatosPrueba();
+            // Volvemos a pedir la lista ahora que ya tiene datos
             listaProductos = AppDatabase.getInstance(this).productoDao().getAll();
         }
 
+        // Creamos el adaptador (que une los datos con la vista) y se lo ponemos a la
+        // lista
         ProductoAdapter adapter = new ProductoAdapter(this, listaProductos);
         rvProductos.setAdapter(adapter);
     }
 
+    // Método auxiliar para crear datos falsos (dummy data) con fines de prueba
     private void agregarDatosPrueba() {
         ProductoDao dao = AppDatabase.getInstance(this).productoDao();
 
