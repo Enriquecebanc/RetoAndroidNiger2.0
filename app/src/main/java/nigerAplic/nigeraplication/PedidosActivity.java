@@ -17,6 +17,8 @@ import androidx.appcompat.app.AlertDialog;
 import nigerAplic.models.Cliente;
 import nigerAplic.models.ClienteDao;
 
+// Pantalla que muestra el historial de pedidos realizados
+// Permite enviar el resumen de un pedido por correo al cliente
 public class PedidosActivity extends AppCompatActivity {
 
     @Override
@@ -24,9 +26,11 @@ public class PedidosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedidos);
 
+        // Configurar el RecyclerView para mostrar la lista de pedidos
         RecyclerView recyclerPedidos = findViewById(R.id.recyclerPedidos);
         recyclerPedidos.setLayoutManager(new LinearLayoutManager(this));
 
+        // Obtener los pedidos de la base de datos
         AppDatabase db = AppDatabase.getInstance(this);
         PedidinDao dao = db.pedidinDao();
         ClienteDao clienteDao = db.clienteDao();
@@ -36,13 +40,16 @@ public class PedidosActivity extends AppCompatActivity {
             Toast.makeText(this, "No hay pedidos registrados", Toast.LENGTH_SHORT).show();
         }
 
+        // Configurar el adaptador con un listener para manejar clics en pedidos
         PedidosAdapter adapter = new PedidosAdapter(pedidos, pedido -> {
             mostrarOpcionesPedido(pedido, clienteDao);
         });
         recyclerPedidos.setAdapter(adapter);
     }
 
+    // Muestra un diálogo con opciones para el pedido seleccionado
     private void mostrarOpcionesPedido(Pedidin pedido, ClienteDao clienteDao) {
+        // Buscar el cliente asociado al pedido
         Cliente cliente = clienteDao.getClienteByFullName(pedido.getClienteNombre());
 
         if (cliente == null || cliente.getEmail() == null || cliente.getEmail().isEmpty()) {
@@ -50,6 +57,7 @@ public class PedidosActivity extends AppCompatActivity {
             return;
         }
 
+        // Mostrar diálogo para confirmar el envío del correo
         new AlertDialog.Builder(this)
                 .setTitle("Opciones de Pedido")
                 .setMessage("¿Deseas enviar el resumen del pedido por correo a " + cliente.getEmail() + "?")
@@ -60,7 +68,9 @@ public class PedidosActivity extends AppCompatActivity {
                 .show();
     }
 
+    // Abre la aplicación de correo para enviar el resumen del pedido
     private void enviarCorreo(Pedidin pedido, String email) {
+        // Preparar el asunto y el cuerpo del correo
         String asunto = "Resumen de su pedido - " + pedido.getFecha();
         String cuerpo = "Hola " + pedido.getClienteNombre() + ",\n\n" +
                 "Este es el resumen de su pedido realizado el " + pedido.getFecha() + ":\n\n" +
@@ -68,6 +78,7 @@ public class PedidosActivity extends AppCompatActivity {
                 "Total: " + String.format("%.2f €", pedido.getTotal()) + "\n\n" +
                 "Gracias por su compra.";
 
+        // Crear intent para enviar correo
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:"));
         intent.putExtra(Intent.EXTRA_EMAIL, new String[] { email });

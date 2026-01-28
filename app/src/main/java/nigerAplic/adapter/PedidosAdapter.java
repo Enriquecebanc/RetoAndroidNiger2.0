@@ -13,11 +13,13 @@ import java.util.List;
 import nigerAplic.models.Pedidin;
 import nigerAplic.nigeraplication.R;
 
+// Adaptador para mostrar la lista de pedidos en un RecyclerView
 public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoViewHolder> {
 
     private List<Pedidin> pedidos;
     private OnPedidoClickListener listener;
 
+    // Interfaz para manejar el clic en un pedido
     public interface OnPedidoClickListener {
         void onPedidoClick(Pedidin pedido);
     }
@@ -34,6 +36,7 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoVi
         return new PedidoViewHolder(view);
     }
 
+    // Configura cada item de pedido con sus datos
     @Override
     public void onBindViewHolder(@NonNull PedidoViewHolder holder, int position) {
         Pedidin pedido = pedidos.get(position);
@@ -42,6 +45,7 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoVi
         holder.tvClientePedido.setText("Cliente: " + pedido.getClienteNombre());
         holder.tvProductosResumen.setText(pedido.getProductosResumen());
 
+        // Configurar evento de clic en el pedido
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onPedidoClick(pedido);
@@ -54,6 +58,7 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidoVi
         return pedidos.size();
     }
 
+    // ViewHolder que contiene las vistas de cada pedido
     static class PedidoViewHolder extends RecyclerView.ViewHolder {
         TextView tvFechaPedido, tvTotalPedido, tvClientePedido, tvProductosResumen;
 

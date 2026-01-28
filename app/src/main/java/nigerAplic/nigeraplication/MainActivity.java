@@ -8,6 +8,8 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+// Pantalla principal de la aplicación (menú principal)
+// Muestra botones para navegar a las diferentes secciones de la app
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -15,56 +17,59 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Enlace de componentes con el XML
-        // Enlace de componentes con el XML (usamos View para permitir cambiar el tipo
-        // de botón en XML)
+        // Vincular los botones del layout con las variables
         android.view.View btnClientes = findViewById(R.id.btnClientes);
         android.view.View btnCarrito = findViewById(R.id.btnCarrito);
         android.view.View btnDescargas = findViewById(R.id.btnDescargas);
         android.view.View btnProductos = findViewById(R.id.btnProductos);
+        android.view.View btnPedidos = findViewById(R.id.btnPedidos);
         ImageView imgMapa = findViewById(R.id.imgMapa);
 
-        // Navegación de botones
+        // Botón para ir a la pantalla de gestión de clientes
         btnClientes.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ClientesActivity.class);
             startActivity(intent);
         });
 
+        // Botón para ir a la pantalla del carrito de compras
         btnCarrito.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CarritoActivity.class);
             startActivity(intent);
         });
 
+        // Botón para ir a la pantalla de descargas (exportar datos a CSV)
         btnDescargas.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, DescargasActivity.class);
             startActivity(intent);
         });
 
+        // Botón para ir a la pantalla del inventario de productos
         btnProductos.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, InventarioActivity.class);
             startActivity(intent);
         });
 
-        android.view.View btnPedidos = findViewById(R.id.btnPedidos);
+        // Botón para ir a la pantalla de historial de pedidos
         btnPedidos.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, PedidosActivity.class);
             startActivity(intent);
         });
 
-        // Lógica para el mapa (imagen interactiva)
+        // Configurar la imagen del mapa como botón interactivo
+        // Al hacer clic, abre Google Maps con la ubicación de la empresa
         imgMapa.setOnClickListener(v -> {
             // Coordenadas de Mancomunidad del Alto Deba
             Uri gmmIntentUri = Uri.parse("geo:43.0639,-2.4848?q=Mancomunidad+del+Alto+Deba");
             Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
 
-            // Intentar abrir la aplicación de Google Maps
+            // Intentar abrir Google Maps
             mapIntent.setPackage("com.google.android.apps.maps");
 
-            // Si el dispositivo tiene Google Maps instalado, lo abre
+            // Si Google Maps está instalado, lo abre
             if (mapIntent.resolveActivity(getPackageManager()) != null) {
                 startActivity(mapIntent);
             } else {
-                // Si no, abre el navegador web normal
+                // Si no está instalado, abre en el navegador web
                 Intent webIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 startActivity(webIntent);
             }
