@@ -17,6 +17,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Actividad que muestra el listado de clientes y permite gestionarlos.
+ */
 public class ClientesActivity extends AppCompatActivity {
 
     RecyclerView rvClientes;
@@ -47,9 +50,13 @@ public class ClientesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // Recargar la lista cada vez que la actividad vuelve al primer plano
         cargarClientes();
     }
 
+    /**
+     * Consulta la base de datos y actualiza el RecyclerView.
+     */
     private void cargarClientes() {
         listaClientes = AppDatabase.getInstance(this).clienteDao().getAll();
         // Actualizar el adaptador con la nueva lista
@@ -57,12 +64,23 @@ public class ClientesActivity extends AppCompatActivity {
         rvClientes.setAdapter(adapter);
     }
 
+    /**
+     * Elimina un cliente de la base de datos tras confirmar la acción.
+     * 
+     * @param cliente El cliente a eliminar
+     */
     private void eliminarCliente(Cliente cliente) {
         AppDatabase.getInstance(this).clienteDao().delete(cliente);
         Toast.makeText(this, "Cliente eliminado", Toast.LENGTH_SHORT).show();
         cargarClientes();
     }
 
+    /**
+     * Muestra un diálogo de opciones (Mapa, Llamar, Correo) para el cliente
+     * seleccionado.
+     * 
+     * @param cliente El cliente sobre el que se actúa
+     */
     private void mostrarOpciones(Cliente cliente) {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
         builder.setTitle("Opciones para " + cliente.getNombre());

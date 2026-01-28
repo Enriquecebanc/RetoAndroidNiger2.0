@@ -1,3 +1,7 @@
+<!-- 
+    Diseño del formulario para crear o editar clientes.
+    Utiliza un ScrollView para asegurar que todos los campos sean accesibles en pantallas pequeñas.
+-->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">

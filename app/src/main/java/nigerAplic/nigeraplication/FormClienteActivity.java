@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import nigerAplic.models.Cliente;
 
+/**
+ * Actividad con el formulario para añadir nuevos clientes.
+ */
 public class FormClienteActivity extends AppCompatActivity {
 
     private EditText etNombre, etApellido, etTelefono, etDireccion, etEmail;
@@ -34,6 +37,10 @@ public class FormClienteActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Recoge los datos de los campos de texto, crea un objeto Cliente y lo guarda
+     * en Room.
+     */
     private void guardarCliente() {
         String nombre = etNombre.getText().toString();
         String apellido = etApellido.getText().toString();
@@ -46,14 +53,14 @@ public class FormClienteActivity extends AppCompatActivity {
             return;
         }
 
-        // Create Cliente object
+        // Crear el objeto Cliente
         Cliente nuevoCliente = new Cliente(nombre, apellido, telefono, direccion, email);
 
-        // Guardar en Base de Datos
+        // Guardar en la Base de Datos mediante Room
         nigerAplic.database.AppDatabase db = nigerAplic.database.AppDatabase.getInstance(this);
         db.clienteDao().insert(nuevoCliente);
 
         Toast.makeText(this, "Cliente guardado correctamente", Toast.LENGTH_SHORT).show();
-        finish(); // Close activity
+        finish(); // Cierra la actividad y vuelve a la anterior
     }
 }

@@ -3,10 +3,14 @@ package nigerAplic.models;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+/**
+ * Modelo que representa a un Cliente en la base de datos.
+ * Utiliza Room para la persistencia de datos.
+ */
 @Entity(tableName = "clientes")
 public class Cliente {
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int id; // ID autogenerado para cada cliente
 
     private String nombre;
     private String apellido;
@@ -14,6 +18,15 @@ public class Cliente {
     private String direccion;
     private String email;
 
+    /**
+     * Constructor para crear un nuevo cliente.
+     * 
+     * @param nombre    Nombre del cliente
+     * @param apellido  Apellido del cliente
+     * @param telefono  Teléfono de contacto
+     * @param direccion Dirección física
+     * @param email     Correo electrónico
+     */
     public Cliente(String nombre, String apellido, String telefono, String direccion, String email) {
         this.nombre = nombre;
         this.apellido = apellido;

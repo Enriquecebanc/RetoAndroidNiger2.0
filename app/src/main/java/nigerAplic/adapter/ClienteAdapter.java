@@ -13,12 +13,21 @@ import java.util.List;
 import nigerAplic.nigeraplication.R;
 import nigerAplic.models.Cliente;
 
+/**
+ * Adaptador para mostrar la lista de clientes en un RecyclerView.
+ */
 public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteViewHolder> {
 
+    /**
+     * Interfaz para manejar el evento de eliminación de un cliente.
+     */
     public interface OnItemDeleteListener {
         void onDeleteClick(Cliente cliente);
     }
 
+    /**
+     * Interfaz para manejar el clic en un elemento de la lista.
+     */
     public interface OnItemClickListener {
         void onItemClick(Cliente cliente);
     }
@@ -37,6 +46,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
     @NonNull
     @Override
     public ClienteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Infla el diseño de cada elemento de la lista
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_cliente, parent, false);
         return new ClienteViewHolder(view);
@@ -44,6 +54,7 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
 
     @Override
     public void onBindViewHolder(@NonNull ClienteViewHolder holder, int position) {
+        // Vincula los datos del cliente con los elementos de la vista
         Cliente cliente = clientes.get(position);
         holder.tvNombreApellido.setText(
                 cliente.getNombre() + " " + cliente.getApellido());
@@ -69,6 +80,9 @@ public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteV
         return clientes.size();
     }
 
+    /**
+     * ViewHolder que mantiene las referencias a las vistas de cada elemento.
+     */
     static class ClienteViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvNombreApellido, tvTelefono, tvDireccion, tvEmail;
