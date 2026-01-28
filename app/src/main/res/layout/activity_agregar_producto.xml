@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- ScrollView permite hacer scroll si el contenido es más alto que la pantalla -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <!-- Contenedor vertical que apila los elementos uno debajo de otro -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Título de la pantalla -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,6 +44,7 @@
             android:inputType="number"
             android:layout_marginBottom="12dp" />
 
+        <!-- Caja de texto para que el usuario escriba los materiales -->
         <EditText
             android:id="@+id/etMateriales"
             android:layout_width="match_parent"
@@ -51,7 +55,7 @@
             android:gravity="top"
             android:layout_marginBottom="12dp" />
 
-        <!-- Nuevo: TextView para mostrar la imagen seleccionada -->
+        <!-- TextView para mostrar el nombre de la imagen que el usuario ha seleccionado -->
         <TextView
             android:id="@+id/tvImagenSeleccionada"
             android:layout_width="match_parent"

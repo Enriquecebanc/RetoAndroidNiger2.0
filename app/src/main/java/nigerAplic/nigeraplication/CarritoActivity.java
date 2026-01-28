@@ -23,6 +23,8 @@ import nigerAplic.models.PedidinDao;
 import nigerAplic.utils.CartManager;
 import nigerAplic.database.AppDatabase;
 
+// Pantalla que muestra el carrito de compras
+// Permite ver los productos añadidos, modificar cantidades y finalizar la compra
 public class CarritoActivity extends AppCompatActivity {
 
     private RecyclerView recyclerCarrito;
@@ -35,29 +37,36 @@ public class CarritoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carrito);
 
+        // Inicializar vistas
         recyclerCarrito = findViewById(R.id.recyclerCarrito);
         tvTotalCarrito = findViewById(R.id.tvTotalCarrito);
         recyclerCarrito.setLayoutManager(new LinearLayoutManager(this));
 
+        // Configurar botón de finalizar compra
         android.widget.Button btnFinalizarCompra = findViewById(R.id.btnFinalizarCompra);
         btnFinalizarCompra.setOnClickListener(v -> mostrarDialogoSeleccionCliente());
     }
 
+    // Muestra un diálogo para seleccionar el cliente que realiza la compra
     private void mostrarDialogoSeleccionCliente() {
+        // Verificar que el carrito no esté vacío
         if (CartManager.getInstance().getAll().isEmpty()) {
             Toast.makeText(this, "El carrito está vacío", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        // Obtener todos los clientes de la base de datos
         ClienteDao clienteDao = AppDatabase.getInstance(this).clienteDao();
         List<Cliente> clientes = clienteDao.getAll();
 
+        // Verificar que existan clientes registrados
         if (clientes.isEmpty()) {
             Toast.makeText(this, "No hay clientes registrados. Por favor, crea un cliente primero.", Toast.LENGTH_LONG)
                     .show();
             return;
         }
 
+        // Crear lista con los nombres completos de los clientes
         String[] nombresClientes = new String[clientes.size()];
         for (int i = 0; i < clientes.size(); i++) {
             nombresClientes[i] = clientes.get(i).getNombre() + " " + clientes.get(i).getApellido();
@@ -65,6 +74,7 @@ public class CarritoActivity extends AppCompatActivity {
 
         final int[] selectedPosition = { -1 };
 
+        // Mostrar diálogo de selección
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Seleccionar Cliente")
                 .setSingleChoiceItems(nombresClientes, -1, (dialog, which) -> {
@@ -82,13 +92,14 @@ public class CarritoActivity extends AppCompatActivity {
                 .show();
     }
 
+    // Muestra un diálogo de confirmación antes de finalizar la compra
     private void mostrarDialogoConfirmacion(Cliente clienteSeleccionado) {
 
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Finalizar Compra")
                 .setMessage("¿Estás seguro de finalizar la compra?")
                 .setPositiveButton("Aceptar", (dialog, which) -> {
-                    // Actualizar stock en BD
+                    // Actualizar el stock de cada producto en la base de datos
                     List<CartItem> items = CartManager.getInstance().getAll();
                     ProductoDao dao = AppDatabase.getInstance(this).productoDao();
 
@@ -103,7 +114,7 @@ public class CarritoActivity extends AppCompatActivity {
                         dao.update(p);
                     }
 
-                    // GUARDAR PEDIDO
+                    // Crear un resumen de los productos comprados
                     StringBuilder productosResumen = new StringBuilder();
                     for (CartItem item : items) {
                         productosResumen.append(item.getProducto().getNombre())
@@ -116,12 +127,14 @@ public class CarritoActivity extends AppCompatActivity {
                         productosResumen.setLength(productosResumen.length() - 2);
                     }
 
+                    // Obtener la fecha y hora actual
                     String fechaActual = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
                             .format(new Date());
 
                     double totalCompra = CartManager.getInstance().calculateTotal();
                     String nombreCliente = clienteSeleccionado.getNombre() + " " + clienteSeleccionado.getApellido();
 
+                    // Crear y guardar el pedido en la base de datos
                     Pedidin nuevoPedido = new Pedidin(
                             nombreCliente,
                             totalCompra,
@@ -130,33 +143,36 @@ public class CarritoActivity extends AppCompatActivity {
 
                     AppDatabase.getInstance(this).pedidinDao().insert(nuevoPedido);
 
+                    // Vaciar el carrito y actualizar la interfaz
                     CartManager.getInstance().clear();
                     actualizarTotal();
                     if (adapter != null) {
                         adapter.notifyDataSetChanged();
-                        cargarProductos(); // Recargar lista vacía
+                        cargarProductos();
                     }
                     Toast.makeText(this, "Compra realizada con éxito", Toast.LENGTH_LONG).show();
 
-                    // Navegar al menú principal
+                    // Volver al menú principal
                     android.content.Intent intent = new android.content.Intent(CarritoActivity.this,
                             MainActivity.class);
                     intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
                             | android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
-                    finish(); // Cerrar la actividad actual
+                    finish();
                 })
                 .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
                 .create()
                 .show();
     }
 
+    // Se ejecuta cada vez que la actividad vuelve a estar visible
     @Override
     protected void onResume() {
         super.onResume();
         cargarProductos();
     }
 
+    // Carga los productos del carrito y configura el adaptador
     private void cargarProductos() {
         List<nigerAplic.models.CartItem> listaCarrito = CartManager.getInstance().getAll();
 
@@ -166,12 +182,14 @@ public class CarritoActivity extends AppCompatActivity {
 
         actualizarTotal();
 
+        // Crear adaptador y asignar al RecyclerView
         adapter = new CarritoAdapter(this, listaCarrito, () -> {
             actualizarTotal();
         });
         recyclerCarrito.setAdapter(adapter);
     }
 
+    // Actualiza el texto que muestra el total del carrito
     private void actualizarTotal() {
         double total = CartManager.getInstance().calculateTotal();
         tvTotalCarrito.setText(String.format("Total: %.2f €", total));

@@ -3,6 +3,8 @@ package nigerAplic.models;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+// Representa un pedido realizado desde el carrito de compras
+// Guarda la información de la compra: cliente, total, fecha y productos
 @Entity(tableName = "pedidos")
 public class Pedidin {
 
@@ -12,7 +14,7 @@ public class Pedidin {
     private String clienteNombre;
     private double total;
     private String fecha;
-    private String productosResumen;
+    private String productosResumen; // Texto con los productos comprados
 
     public Pedidin() {
     }

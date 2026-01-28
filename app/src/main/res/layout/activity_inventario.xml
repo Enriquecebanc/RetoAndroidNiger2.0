@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context="nigerAplic.nigeraplication.InventarioActivity">
 
+    <!-- Título principal de la pantalla -->
     <TextView
         android:id="@+id/tvTituloProductos"
         android:layout_width="0dp"
@@ -20,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- Lista donde se mostrarán los productos (es un contenedor vacío que se llena por código) -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProductos"
         android:layout_width="0dp"
@@ -29,6 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Botón flotante (+) para añadir un nuevo producto -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddProducto"
         android:layout_width="wrap_content"

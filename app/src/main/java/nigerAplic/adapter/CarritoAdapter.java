@@ -17,12 +17,14 @@ import nigerAplic.models.Producto;
 import nigerAplic.nigeraplication.R;
 import nigerAplic.utils.CartManager;
 
+// Adaptador para mostrar los productos del carrito en un RecyclerView
 public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoViewHolder> {
 
     private Context context;
     private List<CartItem> listaCarrito;
     private OnItemDeletedListener deletedListener;
 
+    // Interfaz para notificar cuando se elimina o modifica un item
     public interface OnItemDeletedListener {
         void onItemDeleted();
     }
@@ -40,6 +42,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
         return new CarritoViewHolder(view);
     }
 
+    // Configura cada item del carrito con sus datos y eventos
     @Override
     public void onBindViewHolder(@NonNull CarritoViewHolder holder, int position) {
         CartItem item = listaCarrito.get(position);
@@ -53,7 +56,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
         // Mostrar total del item
         holder.tvTotalItem.setText(String.format("%.2f €", item.getTotalPrice()));
 
-        // Cargar imagen
+        // Cargar imagen del producto
         int resId = 0;
         try {
             resId = context.getResources().getIdentifier(
@@ -75,42 +78,47 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
             }
         }
 
-        // --- Lógica de Botones + y - ---
-
+        // Botón para aumentar la cantidad del producto
         holder.btnSumar.setOnClickListener(v -> {
             int currentPos = holder.getAdapterPosition();
             if (currentPos != RecyclerView.NO_POSITION) {
-                // Actualizar Manager
+                // Actualizar cantidad en el gestor del carrito
                 CartManager.getInstance().increaseQuantity(currentPos);
-                // Actualizar UI del item directamente
+                // Actualizar la vista de este item
                 notifyItemChanged(currentPos);
-                // Notificar cambio de total global
+                // Notificar para actualizar el total general
                 if (deletedListener != null)
-                    deletedListener.onItemDeleted(); // Reusamos para actualizar total
+                    deletedListener.onItemDeleted();
             }
         });
 
+        // Botón para disminuir la cantidad del producto
         holder.btnRestar.setOnClickListener(v -> {
             int currentPos = holder.getAdapterPosition();
             if (currentPos != RecyclerView.NO_POSITION) {
-                // Actualizar Manager
+                // Actualizar cantidad en el gestor del carrito
                 CartManager.getInstance().decreaseQuantity(currentPos);
-                // Actualizar UI del item directamente
+                // Actualizar la vista de este item
                 notifyItemChanged(currentPos);
-                // Notificar cambio de total global
+                // Notificar para actualizar el total general
                 if (deletedListener != null)
-                    deletedListener.onItemDeleted(); // Reusamos para actualizar total
+                    deletedListener.onItemDeleted();
             }
         });
 
+        // Botón para eliminar el producto del carrito
         holder.btnEliminar.setOnClickListener(v -> {
             int actualPosition = holder.getAdapterPosition();
             if (actualPosition != RecyclerView.NO_POSITION) {
+                // Eliminar del gestor del carrito
                 CartManager.getInstance().remove(actualPosition);
+                // Eliminar de la lista local
                 listaCarrito.remove(actualPosition);
+                // Notificar al RecyclerView que se eliminó un item
                 notifyItemRemoved(actualPosition);
                 notifyItemRangeChanged(actualPosition, listaCarrito.size());
 
+                // Notificar para actualizar el total general
                 if (deletedListener != null) {
                     deletedListener.onItemDeleted();
                 }
@@ -123,6 +131,7 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
         return listaCarrito.size();
     }
 
+    // ViewHolder que contiene las vistas de cada item del carrito
     public static class CarritoViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvNombre, tvPrecio, tvCantidad, tvTotalItem;
@@ -132,12 +141,12 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.CarritoV
 
         public CarritoViewHolder(@NonNull View itemView) {
             super(itemView);
+            // Vincular las vistas del layout con las variables
             tvNombre = itemView.findViewById(R.id.tvNombreCarrito);
             tvPrecio = itemView.findViewById(R.id.tvPrecioCarrito);
             imgProducto = itemView.findViewById(R.id.imgProductoCarrito);
             btnEliminar = itemView.findViewById(R.id.btnEliminarCarrito);
 
-            // Nuevas referencias
             tvCantidad = itemView.findViewById(R.id.tvCantidad);
             tvTotalItem = itemView.findViewById(R.id.tvTotalItemCarrito);
             btnSumar = itemView.findViewById(R.id.btnSumar);
