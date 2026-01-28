@@ -3,23 +3,29 @@ package nigerAplic.models;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+// @Entity indica que esta clase representa una tabla en la base de datos llamada "productos"
 @Entity(tableName = "productos")
 public class Producto {
 
+    // @PrimaryKey indica que este campo es el identificador único de cada producto.
+    // autoGenerate = true significa que la base de datos asignará el número (1, 2,
+    // 3...) automáticamente.
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    // Campos para guardar la información del producto
     private String nombre;
     private double precio;
     private String materiales;
-    private String imagen; // nombre del drawable
+    private String imagen; // Guardará el nombre del recurso o la dirección (URI) de la imagen
     private int stock;
 
-    // Constructor vacío obligatorio para Room
+    // Constructor vacío obligatorio para que Room (la base de datos) pueda crear
+    // objetos
     public Producto() {
     }
 
-    // Constructor opcional (Room lo ignora)
+    // Constructor opcional para crear productos manualmente desde código
     public Producto(int id, String nombre, double precio, String materiales, String imagen) {
         this.id = id;
         this.nombre = nombre;
@@ -28,7 +34,9 @@ public class Producto {
         this.imagen = imagen;
     }
 
-    // GETTERS Y SETTERS
+    // --- GETTERS Y SETTERS ---
+    // Son métodos para leer (get) y modificar (set) los valores privados de la
+    // clase de forma segura.
     public int getId() {
         return id;
     }

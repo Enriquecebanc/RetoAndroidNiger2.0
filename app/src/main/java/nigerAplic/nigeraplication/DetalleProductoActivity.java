@@ -14,26 +14,27 @@ import nigerAplic.adapter.ProductoAdapter;
 import nigerAplic.database.AppDatabase;
 import nigerAplic.models.Producto;
 
+// Esta actividad muestra detalles de productos, aunque actualmente funciona como otra lista de productos.
 public class DetalleProductoActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerProductos;
-    private ProductoAdapter adapter;
-    private AppDatabase db;
+    private RecyclerView recyclerProductos; // La lista visual
+    private ProductoAdapter adapter; // El adaptador para conectar datos con la lista
+    private AppDatabase db; // Referencia a la base de datos
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_producto);
 
-        // --- RecyclerView ---
+        // Configuración de la lista (RecyclerView)
         recyclerProductos = findViewById(R.id.recyclerProductos);
         recyclerProductos.setLayoutManager(new LinearLayoutManager(this));
 
-        // --- Base de datos ---
+        // Obtener instancia de la Base de Datos
         db = AppDatabase.getInstance(this);
 
-        // --- Insertar productos de prueba si la BD está vacía ---
-        // --- Insertar productos de prueba si la BD está vacía ---
+        // Insertar productos de prueba si la base de datos está vacía
+        // Esto es útil para que el usuario vea algo la primera vez que abre la app.
         if (db.productoDao().getAll().isEmpty()) {
 
             Producto p1 = new Producto();
@@ -80,7 +81,7 @@ public class DetalleProductoActivity extends AppCompatActivity {
             db.productoDao().insert(p3);
         }
 
-        // --- BOTÓN AÑADIR PRODUCTO ---
+        // BOTÓN AÑADIR PRODUCTO
         Button btnAdd = findViewById(R.id.btnAdd);
         btnAdd.setOnClickListener(v -> {
             Intent intent = new Intent(
@@ -89,7 +90,7 @@ public class DetalleProductoActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-// --- BOTÓN IR AL CARRITO ---
+        //  BOTÓN IR AL CARRITO
         Button btnAd = findViewById(R.id.btnAd);
         btnAd.setOnClickListener(v -> {
             Intent intent = new Intent(
@@ -103,13 +104,16 @@ public class DetalleProductoActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        cargarProductos();
+        cargarProductos(); // Recargar la lista al volver a esta pantalla
     }
 
     private void cargarProductos() {
         // --- Cargar productos ---
+        // 1. Pedir la lista de productos a la base de datos
         List<Producto> productos = db.productoDao().getAll();
+        // 2. Crear el adaptador con esos productos
         adapter = new ProductoAdapter(this, productos);
+        // 3. Asignar el adaptador a la vista de lista
         recyclerProductos.setAdapter(adapter);
     }
 }
